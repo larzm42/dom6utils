@@ -14,7 +14,6 @@ package dom6utils;
 * You should have received a copy of the GNU General Public License
 * along with dom6utils.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;

@@ -1,7 +1,4 @@
 package dom6utils;
-import java.io.BufferedWriter;
-import java.io.FileOutputStream;
-import java.io.FileWriter;
 /* This file is part of dom6utils.
 *
 * dom6utils is free software: you can redistribute it and/or modify
@@ -17,6 +14,9 @@ import java.io.FileWriter;
 * You should have received a copy of the GNU General Public License
 * along with dom6utils.  If not, see <http://www.gnu.org/licenses/>.
 */
+import java.io.BufferedWriter;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
