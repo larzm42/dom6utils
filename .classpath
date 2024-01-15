@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="lib/poi-5.2.3.jar"/>
+	<classpathentry kind="lib" path="lib/poi-ooxml-5.2.3.jar"/>
+	<classpathentry kind="lib" path="lib/xmlbeans-5.1.1.jar"/>
+	<classpathentry kind="lib" path="lib/commons-io-2.11.0.jar"/>
+	<classpathentry kind="lib" path="lib/commons-collections4-4.4.jar"/>
+	<classpathentry kind="lib" path="lib/commons-compress-1.21.jar"/>
+	<classpathentry kind="lib" path="lib/poi-ooxml-lite-5.2.3.jar"/>
+	<classpathentry kind="lib" path="lib/log4j-core-2.22.1.jar"/>
+	<classpathentry kind="lib" path="lib/log4j-api-2.22.1.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
