@@ -61,7 +61,8 @@ public class ItemStatIndexer extends AbstractStatIndexer {
 			"flyingmapmove", "arenareward", "swiftness", "taskmaster", "leper", "siegebonus", "invulnerable", "horrormarkattacker", "entangle", "minsizetoequip",
 			"maxsizetoequip", "minstrtoequip", "minhandstoequip", "deathgemonkill", "deathexplosion", "chanceofattackbyknights", "singleuse", "domspreader",
 			"allunitslooklikebearertoscouts", "monstermustbepresent", "banishkiller", "onlyuseablebyfliersormounted", "masterritualist", "stunattackers",
-			"eatforyouth", "startitem", "swimming", "localsun", "poisonarmor", "curserandomunits", "voidbanishchance", "voidret", "chancetobecomewerewolf", "stormimmune", "farsail", "lesserhorrorattackchance", "islance", "commaster", "comslave", "nofind", "chestwound", "feeblemind", "enlargement", "limitedenlargement", "antimagic", "soulvortex", "end"};																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																				
+			"eatforyouth", "startitem", "swimming", "localsun", "poisonarmor", "curserandomunits", "voidbanishchance", "voidret", "chancetobecomewerewolf", "stormimmune", "farsail", 
+			"lesserhorrorattackchance", "islance", "commaster", "comslave", "nofind", "chestwound", "feeblemind", "enlargement", "limitedenlargement", "antimagic", "soulvortex", "disbelieve", "truesight", "end"};																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																				
 
 
 	private static String[][] KNOWN_ITEM_ATTRS = {
@@ -264,7 +265,9 @@ public class ItemStatIndexer extends AbstractStatIndexer {
 			{"AF00", "stormimmune"},
 			{"8902", "farsail"},
 			{"7800", "lesserhorrorattackchance"},
-			{"9D02", "islance"}
+			{"9D02", "islance"},
+			{"6004", "disbelieve"},
+			{"F303", "truesight"},
 			
 	};
 	
@@ -339,7 +342,7 @@ public class ItemStatIndexer extends AbstractStatIndexer {
 				item.parameters.put("id", rowNumber);
 				item.parameters.put("name", name.toString());
 				short constlevel = getBytes1(startIndex + 36);
-				item.parameters.put("constlevel", constlevel == -1 ? "" : constlevel*2);
+				item.parameters.put("constlevel", constlevel == -1 ? "" : constlevel*2 + 1);
 				short mainpath = getBytes1(startIndex + 37);
 				String[] paths = {"F", "A", "W", "E", "S", "D", "N", "G", "B"};
 				item.parameters.put("mainpath", mainpath == -1 ? "" : paths[mainpath]);

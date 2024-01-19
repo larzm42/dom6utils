@@ -369,7 +369,7 @@ public class MonsterSpriteIndexer {
 							tweak = 6;
 						}
 						if (entry.getValue().equals("hel 1")) {
-							tweak = 4;
+							tweak = 10;
 						}
 						if (entry.getValue().equals("macha 2")) {
 							tweak = 2;

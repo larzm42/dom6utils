@@ -138,7 +138,7 @@ public class SpellStatIndexer extends AbstractStatIndexer {
 				spell.parameters.put("effects_count", getBytes2(startIndex + 64l));
 				
 				effect.modifiers_mask = getBytes8(startIndex+80);
-				spell.parameters.put("next_spell", getBytes2(startIndex + 88l));
+				spell.parameters.put("next_spell", getBytes2(startIndex + 96l));
 
 				effect.record_number = spellNumber;
 				effect.object_type = "Spell";
