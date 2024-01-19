@@ -132,30 +132,9 @@ public class SpellStatIndexer extends AbstractStatIndexer {
 
 				spell.parameters.put("precision", getBytes1(startIndex + 50l));
 				spell.parameters.put("damage", getBytes8(startIndex + 56l));
-
-//				spell.parameters.put("Unknown51", getBytes1(startIndex + 51l));
-//				spell.parameters.put("Unknown52", getBytes2(startIndex + 52l));
-//				spell.parameters.put("Unknown54", getBytes2(startIndex + 54l));
 				
 				effect.raw_argument = getBytes8(startIndex+56);
 
-//				spell.parameters.put("Unknown66", getBytes2(startIndex + 66l));
-//				spell.parameters.put("Unknown68", getBytes2(startIndex + 68l));
-//				spell.parameters.put("Unknown70", getBytes2(startIndex + 70l));
-//				spell.parameters.put("Unknown72", getBytes2(startIndex + 72l));
-//				spell.parameters.put("Unknown74", getBytes2(startIndex + 74l));
-//				spell.parameters.put("Unknown76", getBytes2(startIndex + 76l));
-//				spell.parameters.put("Unknown78", getBytes2(startIndex + 78l));
-//				spell.parameters.put("Unknown90", getBytes2(startIndex + 90l));
-//
-//				spell.parameters.put("Unknown66-1", getBytes1(startIndex + 66l));
-//				spell.parameters.put("Unknown67-1", getBytes1(startIndex + 67l));
-//				spell.parameters.put("Unknown68-1", getBytes1(startIndex + 68l));
-//				spell.parameters.put("Unknown69-1", getBytes1(startIndex + 69l));
-//				spell.parameters.put("Unknown70-1", getBytes1(startIndex + 70l));
-//				spell.parameters.put("Unknown71-1", getBytes1(startIndex + 71l));
-//				spell.parameters.put("Unknown72-1", getBytes1(startIndex + 72l));
-//
 				spell.parameters.put("effects_count", getBytes2(startIndex + 64l));
 				
 				effect.modifiers_mask = getBytes8(startIndex+80);
@@ -167,16 +146,16 @@ public class SpellStatIndexer extends AbstractStatIndexer {
 				spell.effect = effect;
 				
 		        List<Attribute> attributes = new ArrayList<Attribute>();
-				long newIndex = startIndex+92l;
+				long newIndex = startIndex+Starts.SPELL_ATTRIBUTE_OFFSET;
 				int attrib = getBytes4(newIndex);
-				long valueIndex = newIndex + 60l;
-				long value = getBytes4(valueIndex);
+				long valueIndex = newIndex + Starts.SPELL_ATTRIBUTE_GAP;
+				long value = getBytes8(valueIndex);
 				while (attrib != 0) {
 					attributes.add(new Attribute(spellNumber, attrib, value));
 					newIndex+=4;
-					valueIndex+=4;
+					valueIndex+=8;
 					attrib = getBytes4(newIndex);
-					value = getBytes4(valueIndex);
+					value = getBytes8(valueIndex);
 				}
 				spell.attributes = attributes;
 

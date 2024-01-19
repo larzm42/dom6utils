@@ -23,8 +23,6 @@ public class Dom6Utils {
 		SiteStatIndexer.run();
 		System.out.println("Beginning monster stats"); 
 		MonsterStatIndexer.run();
-		System.out.println("Beginning event stats"); 
-		EventStatIndexer.run();
 		System.out.println("Beginning merc stats"); 
 		MercenaryStatIndexer.run();
 		System.out.println("Beginning armor stats"); 
@@ -37,14 +35,14 @@ public class Dom6Utils {
 		NationStatIndexer.run();
 		
 		// Descriptions
-		System.out.println("Beginning item/monster descr"); 
-		ItemMonsterDescDumper.run();
-		System.out.println("Beginning spell descr"); 
-		SpellDescDumper.run();
+//		System.out.println("Beginning item/monster descr"); 
+//		ItemMonsterDescDumper.run();
+//		System.out.println("Beginning spell descr"); 
+//		SpellDescDumper.run();
 		
 		// Events
-		System.out.println("Beginning event stats"); 
-		EventStatIndexer.run();
+//		System.out.println("Beginning event stats"); 
+//		EventStatIndexer.run();
 		
 		// Sprites
 		System.out.println("Beginning item sprites"); 
@@ -53,7 +51,7 @@ public class Dom6Utils {
 		MonsterSpriteIndexer.run();
 		
 		// Names
-		System.out.println("Beginning names"); 
-		NametypeIndexer.run();
+//		System.out.println("Beginning names"); 
+//		NametypeIndexer.run();
 	}
 }

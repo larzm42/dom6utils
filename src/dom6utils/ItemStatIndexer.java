@@ -44,7 +44,7 @@ public class ItemStatIndexer extends AbstractStatIndexer {
 			"alch", "insa", "hp", "protf", "protb", "mr", "morale", "str", "att", "def", "prec", "enc", "mapspeed", "ap", "reinvigoration", "pen", "stealth", 
 			"stealthb", "forest", "mount", "waste", "swamp", "fly", "float", "sailingshipsize", "sailingmaxunitsize", "waterbreathing", "giftofwater", "airbr", 
 			"flytr", "quick", "eth", "trample", "bless", "luck", "foolsluck", "barkskin", "stoneskin", "ironskin", "curse", "disease", "cursed", "taint", "ldr-n", "ldr-u", "ldr-m", "inspirational", 
-			"fear", "awe", "animalawe", "exp", "chill", "heat", "gold", "F", "A", "W", "E", "S", "D", "N", "B", "H", "firerange", "airrange", 
+			"fear", "awe", "animalawe", "exp", "chill", "heat", "gold", "F", "A", "W", "E", "S", "D", "N", "G", "B", "H", "firerange", "airrange", 
 			"waterrange", "earthrange", "astralrange", "deathrange", "naturerange", "bloodrange", "tmpfiregems", "tmpairgems", "tmpwatergems", "tmpearthgems", 
 			"tmpastralgems", "tmpdeathgems", "tmpnaturegems", "tmpbloodslaves", "gf", "ga", "gw", "ge", "gs", "gd", "gn", "gb", "berserk", "bers", "fireshield", 
 			"banefireshield", "iceprot", "bloodvengeance", "pillagebonus", "patrolbonus", "castledef", "supplybonus", "researchbonus", 
@@ -91,8 +91,9 @@ public class ItemStatIndexer extends AbstractStatIndexer {
 			{"0E00", "S"},
 			{"0F00", "D"},
 			{"1000", "N"},
-			{"1100", "B"},
-			{"1200", "H"},
+			{"1100", "G"},
+			{"1200", "B"},
+			{"1300", "H"},
 			{"1400", "elemental"},
 			{"1500", "sorcery"},
 			{"1600", "all"},
@@ -340,7 +341,7 @@ public class ItemStatIndexer extends AbstractStatIndexer {
 				short constlevel = getBytes1(startIndex + 36);
 				item.parameters.put("constlevel", constlevel == -1 ? "" : constlevel*2);
 				short mainpath = getBytes1(startIndex + 37);
-				String[] paths = {"F", "A", "W", "E", "S", "D", "N", "B"};
+				String[] paths = {"F", "A", "W", "E", "S", "D", "N", "G", "B"};
 				item.parameters.put("mainpath", mainpath == -1 ? "" : paths[mainpath]);
 				item.parameters.put("mainlevel", getBytes1(startIndex + 39));
 				short secondarypath = getBytes1(startIndex + 38);
@@ -348,7 +349,7 @@ public class ItemStatIndexer extends AbstractStatIndexer {
 				short secondarylevel = getBytes1(startIndex + 40);
 				item.parameters.put("secondarylevel", secondarylevel == 0 ? "" : secondarylevel);
 				short type = getBytes1(startIndex + 41);
-				String[] types = {"1-h wpn", "2-h wpn", "missile", "shield", "armor", "helm", "boots", "misc"};
+				String[] types = {"1-h wpn", "2-h wpn", "missile", "shield", "armor", "helm", "boots", "misc", "barding"};
 				item.parameters.put("type", type < 1 ? "" : types[type-1]);
 				int weapon = getBytes2(startIndex + 44);
 				item.parameters.put("weapon", weapon == 0 ? "" : weapon);
@@ -356,7 +357,7 @@ public class ItemStatIndexer extends AbstractStatIndexer {
 				item.parameters.put("armor", armor == 0 ? "" : armor);
 				item.parameters.put("itemspell", getString(startIndex + 48));
 				
-				List<AttributeValue> attributes = getAttributes(startIndex + Starts.ITEM_ATTRIBUTE_OFFSET, Starts.ITEM_ATTRIBUTE_GAP);
+				List<AttributeValue> attributes = getAttributes(startIndex + Starts.ITEM_ATTRIBUTE_OFFSET);
 				
 				for (AttributeValue attr : attributes) {
 					boolean found = false;
@@ -364,18 +365,10 @@ public class ItemStatIndexer extends AbstractStatIndexer {
 						if (KNOWN_ITEM_ATTRS[x][0].equals(attr.attribute)) {
 							found = true;
 							if (KNOWN_ITEM_ATTRS[x][1].endsWith("#")) {
-								if (KNOWN_ITEM_ATTRS[x][1].startsWith("restricted")) {
-									int i = 1;
-									for (String value : attr.values) {
-										item.parameters.put(KNOWN_ITEM_ATTRS[x][1].replace("#", i+""), Integer.parseInt(value)-100);
-										i++;
-									}
-								} else {
-									int i = 1;
-									for (String value : attr.values) {
-										item.parameters.put(KNOWN_ITEM_ATTRS[x][1].replace("#", i+""), Integer.parseInt(value));
-										i++;
-									}
+								int i = 1;
+								for (String value : attr.values) {
+									item.parameters.put(KNOWN_ITEM_ATTRS[x][1].replace("#", i+""), Integer.parseInt(value));
+									i++;
 								}
 							} else {
 								switch (KNOWN_ITEM_ATTRS[x][1]) {
@@ -389,7 +382,7 @@ public class ItemStatIndexer extends AbstractStatIndexer {
 									item.parameters.put("S", attr.values.get(0));
 									item.parameters.put("D", attr.values.get(0));
 									item.parameters.put("N", attr.values.get(0));
-									item.parameters.put("B", attr.values.get(0));
+									item.parameters.put("G", attr.values.get(0));
 									break;
 								case ("all"):
 									item.parameters.put("F", attr.values.get(0));
@@ -399,6 +392,7 @@ public class ItemStatIndexer extends AbstractStatIndexer {
 									item.parameters.put("S", attr.values.get(0));
 									item.parameters.put("D", attr.values.get(0));
 									item.parameters.put("N", attr.values.get(0));
+									item.parameters.put("G", attr.values.get(0));
 									item.parameters.put("B", attr.values.get(0));
 									break;
 								case ("elemental range"):

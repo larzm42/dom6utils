@@ -55,6 +55,8 @@ public class ItemSpriteIndexer {
 		indexToInt.put("misc", new ArrayList<String>(Arrays.asList(new String[]{"1F"})));
 		indexToInt.put("potion", new ArrayList<String>(Arrays.asList(new String[]{"23"})));
 		indexToInt.put("prost", new ArrayList<String>(Arrays.asList(new String[]{"27"})));
+		indexToInt.put("Mountstuff", new ArrayList<String>(Arrays.asList(new String[]{"2A", "2B"})));
+		indexToInt.put("Tomes", new ArrayList<String>(Arrays.asList(new String[]{"2E"})));
 		
 		FileInputStream stream = null;
 		try {
@@ -128,7 +130,7 @@ public class ItemSpriteIndexer {
 				System.out.println(id + ":" + name + ": " + offset + " " + index);
 
 				id++;
-				stream.skip(196);
+				stream.skip(Starts.ITEM_SIZE - 44);
 			}
 			TreeSet<String> sorted = new TreeSet<String>(new Comparator<String>() {
 				@Override

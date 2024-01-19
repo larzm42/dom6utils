@@ -39,7 +39,7 @@ import dom6utils.CSVWriter.Delimiter;
 import dom6utils.CSVWriter.SSType;
 
 public class SiteStatIndexer extends AbstractStatIndexer {
-	public static String[] site_columns = {"id", "name", "rarity", "loc", "level", "path", "F", "A", "W", "E", "S", "D", "N", "B", "gold", "res", 
+	public static String[] site_columns = {"id", "name", "rarity", "loc", "level", "path", "F", "A", "W", "E", "S", "D", "N", "G", "B", "gold", "res", 
 			"sup", "unr", "exp", "lab", "fort", "scale1", "scale2", "domspread", "turmoil", "sloth", "cold", "death", "misfortune", "drain", 
 			"fireres", "coldres", "shockres", "poisonres", "str", "prec", "mor", "undying", "att", "darkvision", "aawe", "rit", "ritrng", 
 			"hmon1", "hmon2", "hmon3", "hmon4", "hmon5", "voidgate", "sum1", "n_sum1", "sum2", "n_sum2", "sum3", "n_sum3", "conj", "alter", "evo", 
@@ -58,7 +58,8 @@ public class SiteStatIndexer extends AbstractStatIndexer {
 			{"0500", "S"},
 			{"0600", "D"},
 			{"0700", "N"},
-			{"0800", "B"},
+			{"0800", "G"},
+			{"0900", "B"},
 			{"0D00", "gold"},
 			{"0E00", "res"},
 			{"1400", "sup"},
@@ -135,7 +136,7 @@ public class SiteStatIndexer extends AbstractStatIndexer {
 			{"0301", "sorceryrange"},
 			{"0401", "allrange"},
 			{"1F00", "incscale"},
-			{"2000", "decscale"},
+			{"6A00", "decscale"},
 			{"7F01", "bringgold"},
 			{"7602", "scorch"},
 			
@@ -199,14 +200,14 @@ public class SiteStatIndexer extends AbstractStatIndexer {
 				site.parameters.put("rarity", rarity == -1 ? "0" : rarity);
 				site.parameters.put("loc", getBytes4(startIndex + 208));
 				site.parameters.put("level", getBytes2(startIndex + 40));
-				String[] paths = {"Fire", "Air", "Water", "Earth", "Astral", "Death", "Nature", "Blood", "Holy"};
-				int[] spriteOffset = {1, 9, 18, 26, 35, 42, 50, 59, 68};
+				String[] paths = {"Fire", "Air", "Water", "Earth", "Astral", "Death", "Nature", "Glamour", "Blood", "Holy"};
+				int[] spriteOffset = {1, 10, 19, 29, 41, 48, 57, 68, 82, 91};
 				short path = getBytes1(startIndex + 38);
 				short sprite = getBytes1(startIndex + 36);
 				site.parameters.put("path", path == -1 ? "" : paths[path]);
 				site.parameters.put("sprite", path == -1 ? "" : spriteOffset[path] + sprite);
 				
-				List<AttributeValue> attributes = getAttributes(startIndex + Starts.SITE_ATTRIBUTE_OFFSET, Starts.SITE_ATTRIBUTE_GAP, 8);
+				List<AttributeValue> attributes = getAttributes(startIndex + Starts.SITE_ATTRIBUTE_OFFSET);
 				for (AttributeValue attr : attributes) {
 					boolean found = false;
 					for (int x = 0; x < KNOWN_SITE_ATTRS.length; x++) {
@@ -313,6 +314,11 @@ public class SiteStatIndexer extends AbstractStatIndexer {
 					AttributeValue attributeValue = attributes.get(attributes.indexOf(new AttributeValue("0001")));
 					value = attributeValue.values.get(0);
 					boolPaths[6] = true;
+				}
+				if (attributes.contains(new AttributeValue("0101"))) {
+					AttributeValue attributeValue = attributes.get(attributes.indexOf(new AttributeValue("0101")));
+					value = attributeValue.values.get(0);
+					boolPaths[7] = true;
 				}
 				if (attributes.contains(new AttributeValue("0101"))) {
 					AttributeValue attributeValue = attributes.get(attributes.indexOf(new AttributeValue("0101")));

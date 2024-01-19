@@ -96,7 +96,7 @@ public class ArmorStatIndexer extends AbstractStatIndexer {
 				armor.protections = protections;
 				
 		        List<Attribute> attributes = new ArrayList<Attribute>();
-				newIndex = startIndex+72;
+				newIndex = startIndex+Starts.ARMOR_ATTRIBUTE_OFFSET;
 				int attrib = getBytes4(newIndex);
 				long valueIndex = newIndex + 16l;
 				long value = getBytes4(valueIndex);

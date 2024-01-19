@@ -194,10 +194,7 @@ public abstract class AbstractStatIndexer {
 		return name.toString();
 	}
 	
-	protected static List<AttributeValue> getAttributes(long skip, long attrGap) throws IOException {
-		return getAttributes(skip, attrGap, 4l);
-	}
-	protected static List<AttributeValue> getAttributes(long skip, long attrGap, long attrValueLength) throws IOException {
+	protected static List<AttributeValue> getAttributes(long skip) throws IOException {
 		FileInputStream stream = new FileInputStream(EXE_NAME);	
 		List<AttributeValue> attrList = new ArrayList<AttributeValue>();
 		stream.skip(skip);
@@ -207,34 +204,25 @@ public abstract class AbstractStatIndexer {
 			String low = String.format("%02X", c[0]);
 			if (Integer.decode("0X" + high + low) != 0) {
 				AttributeValue val = new AttributeValue(low + high);
-				attrList.add(val);
-			} else {
-				stream.skip(attrGap - attrList.size()*2l);
-				// Values
-				for (AttributeValue attrVal : attrList) {
-					byte[] d = new byte[4];
-					stream.read(d, 0, 4);
-					String high1 = String.format("%02X", d[3]);
-					String low1 = String.format("%02X", d[2]);
-					high = String.format("%02X", d[1]);
-					low = String.format("%02X", d[0]);
-					attrVal.values.add(Integer.toString(new BigInteger(high1 + low1 + high + low, 16).intValue()));
-					stream.skip(attrValueLength-4);
+				if (attrList.contains(val)) {
+					val = attrList.get(attrList.indexOf(val));
 				}
-				break;
-			}				
-		}
-		List<AttributeValue> newList = new ArrayList<AttributeValue>();
-		for (AttributeValue attrVal : attrList) {
-			if (!newList.contains(attrVal)) {
-				newList.add(attrVal);
+				stream.skip(6);
+				byte[] d = new byte[4];
+				stream.read(d, 0, 4);
+				String high1 = String.format("%02X", d[3]);
+				String low1 = String.format("%02X", d[2]);
+				high = String.format("%02X", d[1]);
+				low = String.format("%02X", d[0]);
+				val.values.add(Integer.toString(new BigInteger(high1 + low1 + high + low, 16).intValue()));
+				attrList.add(val);
+				stream.skip(4);
 			} else {
-				AttributeValue oldAttr = newList.get(newList.indexOf(attrVal));
-				oldAttr.values.add(attrVal.values.get(0));
+				break;
 			}
 		}
 		stream.close();
-		return newList;
+		return attrList;
 	}
 	
 	protected static List<String> largeBitmap(long start, String[][] values) throws IOException {

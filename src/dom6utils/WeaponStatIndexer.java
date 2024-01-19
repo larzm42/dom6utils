@@ -91,14 +91,14 @@ public class WeaponStatIndexer extends AbstractStatIndexer {
 				weapon.parameters.put("rcost", getBytes2(startIndex + 86));
 				
 		        List<Attribute> attributes = new ArrayList<Attribute>();
-				long newIndex = startIndex+88;
+				long newIndex = startIndex+Starts.WEAPON_ATTRIBUTE_OFFSET;
 				int attrib = getBytes4(newIndex);
-				long valueIndex = newIndex + 12l;
+				long valueIndex = newIndex + 4l;
 				long value = getBytes4(valueIndex);
 				while (attrib != 0) {
 					attributes.add(new Attribute(weaponNumber, attrib, value));
-					newIndex+=4;
-					valueIndex+=4;
+					newIndex+=8;
+					valueIndex+=8;
 					attrib = getBytes4(newIndex);
 					value = getBytes4(valueIndex);
 				}

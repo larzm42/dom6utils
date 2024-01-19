@@ -47,7 +47,7 @@ public class MonsterSpriteIndexer {
 	public static void run() {
 		indexToInt.put("first", new ArrayList<String>(Arrays.asList(new String[]{"00", "01"})));
 		indexToInt.put("sea", new ArrayList<String>(Arrays.asList(new String[]{"03", "04"})));
-		indexToInt.put("gods", new ArrayList<String>(Arrays.asList(new String[]{"07", "08", "09"})));
+		indexToInt.put("gods", new ArrayList<String>(Arrays.asList(new String[]{"07", "08", "09", "0A"})));
 		indexToInt.put("arco 1", new ArrayList<String>(Arrays.asList(new String[]{"0B"})));
 		indexToInt.put("arco 2", new ArrayList<String>(Arrays.asList(new String[]{"0F"})));
 		indexToInt.put("arco 3", new ArrayList<String>(Arrays.asList(new String[]{"13"})));
@@ -59,7 +59,7 @@ public class MonsterSpriteIndexer {
 		indexToInt.put("pyth 3", new ArrayList<String>(Arrays.asList(new String[]{"2A", "2B"})));
 		indexToInt.put("ulm 1", new ArrayList<String>(Arrays.asList(new String[]{"2E", "2F"})));
 		indexToInt.put("ulm 2", new ArrayList<String>(Arrays.asList(new String[]{"32", "33"})));
-		indexToInt.put("ulm 3", new ArrayList<String>(Arrays.asList(new String[]{"36"})));
+		indexToInt.put("ulm 3", new ArrayList<String>(Arrays.asList(new String[]{"36", "37"})));
 		indexToInt.put("marv 1", new ArrayList<String>(Arrays.asList(new String[]{"3A"})));
 		indexToInt.put("mar 2", new ArrayList<String>(Arrays.asList(new String[]{"3E"})));
 		indexToInt.put("mar 3", new ArrayList<String>(Arrays.asList(new String[]{"42"})));
@@ -78,7 +78,7 @@ public class MonsterSpriteIndexer {
 		indexToInt.put("jomon 3", new ArrayList<String>(Arrays.asList(new String[]{"79"})));
 		indexToInt.put("van 1", new ArrayList<String>(Arrays.asList(new String[]{"7D"})));
 		indexToInt.put("hel 1", new ArrayList<String>(Arrays.asList(new String[]{"80", "81"})));
-		indexToInt.put("van 2", new ArrayList<String>(Arrays.asList(new String[]{"84"})));
+		indexToInt.put("van 2", new ArrayList<String>(Arrays.asList(new String[]{"84", "85"})));
 		indexToInt.put("mid 3", new ArrayList<String>(Arrays.asList(new String[]{"88"})));
 		indexToInt.put("niefel 1", new ArrayList<String>(Arrays.asList(new String[]{"8C"})));
 		indexToInt.put("jotun 2", new ArrayList<String>(Arrays.asList(new String[]{"90"})));
@@ -116,6 +116,7 @@ public class MonsterSpriteIndexer {
 		indexToInt.put("asp 2", new ArrayList<String>(Arrays.asList(new String[]{"11"})));
 		indexToInt.put("lem 3", new ArrayList<String>(Arrays.asList(new String[]{"15"})));
 		indexToInt.put("berytos", new ArrayList<String>(Arrays.asList(new String[]{"1D"})));
+		indexToInt.put("muspel", new ArrayList<String>(Arrays.asList(new String[]{"21"})));
 		indexToInt.put("atl 1", new ArrayList<String>(Arrays.asList(new String[]{"28", "29"})));
 		indexToInt.put("atl 2", new ArrayList<String>(Arrays.asList(new String[]{"2C", "2D"})));
 		indexToInt.put("atl 3", new ArrayList<String>(Arrays.asList(new String[]{"30"})));
@@ -152,6 +153,15 @@ public class MonsterSpriteIndexer {
 		indexToInt.put("ubar", new ArrayList<String>(Arrays.asList(new String[]{"B5"})));
 		indexToInt.put("naba", new ArrayList<String>(Arrays.asList(new String[]{"B9"})));
 		indexToInt.put("vaetti", new ArrayList<String>(Arrays.asList(new String[]{"BD"})));
+		indexToInt.put("mount", new ArrayList<String>(Arrays.asList(new String[]{"C1"})));
+		indexToInt.put("Bekryd", new ArrayList<String>(Arrays.asList(new String[]{"C5"})));
+		indexToInt.put("Pyr MA", new ArrayList<String>(Arrays.asList(new String[]{"C9"})));
+		indexToInt.put("Nid", new ArrayList<String>(Arrays.asList(new String[]{"D0", "D1"})));
+		indexToInt.put("Plant", new ArrayList<String>(Arrays.asList(new String[]{"D4", "D5"})));
+		indexToInt.put("glamour", new ArrayList<String>(Arrays.asList(new String[]{"D8"})));
+		indexToInt.put("Fem", new ArrayList<String>(Arrays.asList(new String[]{"DC"})));
+		indexToInt.put("Pico", new ArrayList<String>(Arrays.asList(new String[]{"E0"})));
+		indexToInt.put("And", new ArrayList<String>(Arrays.asList(new String[]{"E4"})));
 		/*
 		macha 3: 1975
 		empty: 5023
@@ -236,7 +246,7 @@ public class MonsterSpriteIndexer {
 					System.out.println(id + ":" + name + ": " + offset + " " + index);
 					
 					id++;
-					stream.skip(226 + 24);
+					stream.skip(826 + 24);
 				}
 				TreeSet<String> sorted = new TreeSet<String>(new Comparator<String>() {
 					@Override
@@ -384,6 +394,12 @@ public class MonsterSpriteIndexer {
 						}
 						if (entry.getValue().equals("hob 1")) {
 							tweak = 6;
+						}
+						if (entry.getValue().equals("Pyr MA")) {
+							tweak = 2;
+						}
+						if (entry.getValue().equals("Plant")) {
+							tweak = 8;
 						}
 						
 						for (SortedByOffset ugh : sortedSet) {

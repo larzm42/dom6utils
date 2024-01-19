@@ -44,8 +44,8 @@ import dom6utils.CSVWriter.SSType;
 public class MonsterStatIndexer extends AbstractStatIndexer {
 	public static String[] unit_columns = {"id", "name", "wpn1", "wpn2", "wpn3", "wpn4", "wpn5", "wpn6", "wpn7", "armor1", "armor2", "armor3", "armor4", 
 			"rt", "reclimit", "basecost", "rcost", "size", "ressize", "hp", "prot", "mr", "mor", "str", "att", "def", "prec", "enc", 
-			"mapmove", "ap", "ambidextrous", "mounted", "reinvigoration", "leader", "undeadleader", "magicleader", "startage", "maxage", "hand", "head", 
-			"body", "foot", "misc", "crownonly", "pathcost", "startdom", "bonusspells", "F", "A", "W", "E", "S", "D", "N", "B", "H", "rand1", "nbr1", "link1", "mask1", "rand2", 
+			"mapmove", "ap", "ambidextrous", "mounted", "mountmnr", "skilledrider", "reinvigoration", "leader", "undeadleader", "magicleader", "startage", "maxage", "hand", "bow", "head", 
+			"body", "foot", "misc", "crownonly", "pathcost", "startdom", "bonusspells", "F", "A", "W", "E", "S", "D", "N", "G", "B", "H", "rand1", "nbr1", "link1", "mask1", "rand2", 
 			"nbr2", "link2", "mask2", "rand3", "nbr3", "link3", "mask3", "rand4", "nbr4", "link4", "mask4", "holy", "inquisitor", "mind", "inanimate", 
 			"undead", "demon", "magicbeing", "stonebeing", "animal", "coldblood", "female", "forestsurvival", "mountainsurvival", "wastesurvival", 
 			"swampsurvival", "cavesurvival", "aquatic", "amphibian", "pooramphibian", "float", "flying", "stormimmune", "teleport", "immobile", 
@@ -97,6 +97,9 @@ public class MonsterStatIndexer extends AbstractStatIndexer {
 										{"", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "" }};
 	
 	private static String[][] KNOWN_MONSTER_ATTRS = {
+		{"F703", "mountmnr"},
+		{"4904", "skilledrider"},
+
 		{"6C00", "stealthy"},
 		{"C900", "coldres"},
 		{"DC00", "cold"},
@@ -220,7 +223,8 @@ public class MonsterStatIndexer extends AbstractStatIndexer {
 		{"2200", "gemprod astral"},
 		{"2300", "gemprod death"},
 		{"2400", "gemprod nature"},
-		{"2500", "gemprod blood"},
+		{"2500", "gemprod glamour"},
+		{"2600", "gemprod blood"},
 		{"F800", "fixedresearch"},
 		{"C201", "divineins"},
 		{"4701", "haltheretic"}, // formerly halt
@@ -474,7 +478,6 @@ public class MonsterStatIndexer extends AbstractStatIndexer {
 		
 		
 		
-		
 	};
 	
 //	0701	Feeblemind chance in province? Kurgi Only [unknown effect]
@@ -510,6 +513,7 @@ public class MonsterStatIndexer extends AbstractStatIndexer {
 		public int S;
 		public int D;
 		public int N;
+		public int G;
 		public int B;
 		public int H;
 		public List<RandomMagic> rand;
@@ -591,9 +595,12 @@ public class MonsterStatIndexer extends AbstractStatIndexer {
 					monMagic.N = value;
 					break;
 				case 7:
-					monMagic.B = value;
+					monMagic.G = value;
 					break;
 				case 8:
+					monMagic.B = value;
+					break;
+				case 9:
 					monMagic.H = value;
 					break;
 				default:
@@ -744,21 +751,21 @@ public class MonsterStatIndexer extends AbstractStatIndexer {
 				monster.setDef(getBytes2(startIndex + 58));
 				monster.setMr(getBytes2(startIndex + 60));
 				monster.setMor(getBytes2(startIndex + 62));
-				monster.setWpn1(getBytes2(startIndex + 208 + 24) == 0 ? null : getBytes2(startIndex + 208 + 24));
-				monster.setWpn2(getBytes2(startIndex + 210 + 24) == 0 ? null : getBytes2(startIndex + 210 + 24));
-				monster.setWpn3(getBytes2(startIndex + 212 + 24) == 0 ? null : getBytes2(startIndex + 212 + 24));
-				monster.setWpn4(getBytes2(startIndex + 214 + 24) == 0 ? null : getBytes2(startIndex + 214 + 24));
-				monster.setWpn5(getBytes2(startIndex + 216 + 24) == 0 ? null : getBytes2(startIndex + 216 + 24));
-				monster.setWpn6(getBytes2(startIndex + 218 + 24) == 0 ? null : getBytes2(startIndex + 218 + 24));
-				monster.setWpn7(getBytes2(startIndex + 220 + 24) == 0 ? null : getBytes2(startIndex + 220 + 24));
-				monster.setArmor1(getBytes2(startIndex + 228 + 24) == 0 ? null : getBytes2(startIndex + 228 + 24));
-				monster.setArmor2(getBytes2(startIndex + 230 + 24) == 0 ? null : getBytes2(startIndex + 230 + 24));
-				monster.setArmor3(getBytes2(startIndex + 232 + 24) == 0 ? null : getBytes2(startIndex + 232 + 24));
-				monster.setBasecost(getBytes2(startIndex + 234 + 24));
-				monster.setRcost(getBytes2(startIndex + 236 + 24));
-				monster.setRpcost(getBytes4(startIndex + 240 + 24));
+				monster.setWpn1(getBytes2(startIndex + 832) == 0 ? null : getBytes2(startIndex + 832));
+				monster.setWpn2(getBytes2(startIndex + 834) == 0 ? null : getBytes2(startIndex + 834));
+				monster.setWpn3(getBytes2(startIndex + 836) == 0 ? null : getBytes2(startIndex + 836));
+				monster.setWpn4(getBytes2(startIndex + 838) == 0 ? null : getBytes2(startIndex + 838));
+				monster.setWpn5(getBytes2(startIndex + 840) == 0 ? null : getBytes2(startIndex + 840));
+				monster.setWpn6(getBytes2(startIndex + 842) == 0 ? null : getBytes2(startIndex + 842));
+				monster.setWpn7(getBytes2(startIndex + 844) == 0 ? null : getBytes2(startIndex + 844));
+				monster.setArmor1(getBytes2(startIndex + 852) == 0 ? null : getBytes2(startIndex + 852));
+				monster.setArmor2(getBytes2(startIndex + 854) == 0 ? null : getBytes2(startIndex + 854));
+				monster.setArmor3(getBytes2(startIndex + 856) == 0 ? null : getBytes2(startIndex + 856));
+				monster.setBasecost(getBytes2(startIndex + 858));
+				monster.setRcost(getBytes2(startIndex + 860));
+				monster.setRpcost(getBytes4(startIndex + 864));
 
-				List<AttributeValue> attributes = getAttributes(startIndex + Starts.MONSTER_ATTRIBUTE_OFFSET, Starts.MONSTER_ATTRIBUTE_GAP);
+				List<AttributeValue> attributes = getAttributes(startIndex+ Starts.MONSTER_ATTRIBUTE_OFFSET);
 				for (AttributeValue attr : attributes) {
 					boolean found = false;
 					for (int x = 0; x < KNOWN_MONSTER_ATTRS.length; x++) {
@@ -862,6 +869,13 @@ public class MonsterStatIndexer extends AbstractStatIndexer {
 								}
 								gemprod += attr.values.get(0) + "N";
 	 							monster.addAttribute(new Attr("gemprod", gemprod));
+							} else if (KNOWN_MONSTER_ATTRS[x][1].equals("gemprod glamour")) {
+								String gemprod = "";
+								if (monster.getAttribute("gemprod") != null) {
+									gemprod = monster.getAttribute("gemprod").toString();
+								}
+								gemprod += attr.values.get(0) + "G";
+	 							monster.addAttribute(new Attr("gemprod", gemprod));
 							} else if (KNOWN_MONSTER_ATTRS[x][1].equals("gemprod blood")) {
 								String gemprod = "";
 								if (monster.getAttribute("gemprod") != null) {
@@ -903,7 +917,7 @@ public class MonsterStatIndexer extends AbstractStatIndexer {
 					}
 				}
 				
-				List<String> largeBitmap = largeBitmap(startIndex + 272, values);
+				List<String> largeBitmap = largeBitmap(startIndex + Starts.MONSTER_BITMAP_START, values);
 				for (String bit : largeBitmap) {
 					// Heat and cold are additive +3 when added this way, and are dealt with below
 					if (bit != "heat" && bit != "cold") {
@@ -948,7 +962,7 @@ public class MonsterStatIndexer extends AbstractStatIndexer {
 				if (monster.getAttribute("additional leadership") != null) {
 					additionalLeader = monster.getAttribute("additional leadership").toString();
 				}
-				monster.addAttribute(new Attr("leader", 40+Integer.parseInt(additionalLeader)));
+				monster.addAttribute(new Attr("leader", 50+Integer.parseInt(additionalLeader)));
 				if (largeBitmap.contains("noleader")) {
 					if (!"".equals(additionalLeader)) {
 						monster.addAttribute(new Attr("leader", additionalLeader));
@@ -965,54 +979,54 @@ public class MonsterStatIndexer extends AbstractStatIndexer {
 				}
 				if (largeBitmap.contains("goodleader")) {
 					if (!"".equals(additionalLeader)) {
-						monster.addAttribute(new Attr("leader", 80+Integer.parseInt(additionalLeader)));
+						monster.addAttribute(new Attr("leader", 100+Integer.parseInt(additionalLeader)));
 					} else {
-						monster.addAttribute(new Attr("leader", 80));
+						monster.addAttribute(new Attr("leader", 100));
 					}
 				}
 				if (largeBitmap.contains("expertleader")) {
 					if (!"".equals(additionalLeader)) {
-						monster.addAttribute(new Attr("leader", 120+Integer.parseInt(additionalLeader)));
+						monster.addAttribute(new Attr("leader", 150+Integer.parseInt(additionalLeader)));
 					} else {
-						monster.addAttribute(new Attr("leader", 120));
+						monster.addAttribute(new Attr("leader", 150));
 					}
 				}
 				if (largeBitmap.contains("superiorleader")) {
 					if (!"".equals(additionalLeader)) {
-						monster.addAttribute(new Attr("leader", 160+Integer.parseInt(additionalLeader)));
+						monster.addAttribute(new Attr("leader", 200+Integer.parseInt(additionalLeader)));
 					} else {
-						monster.addAttribute(new Attr("leader", 160));
+						monster.addAttribute(new Attr("leader", 200));
 					}
 				}
 				if (largeBitmap.contains("poormagicleader")) {
 					monster.addAttribute(new Attr("magicleader", 10));
 				}
 				if (largeBitmap.contains("okmagicleader")) {
-					monster.addAttribute(new Attr("magicleader", 40));
+					monster.addAttribute(new Attr("magicleader", 50));
 				}
 				if (largeBitmap.contains("goodmagicleader")) {
-					monster.addAttribute(new Attr("magicleader", 80));
+					monster.addAttribute(new Attr("magicleader", 100));
 				}
 				if (largeBitmap.contains("expertmagicleader")) {
-					monster.addAttribute(new Attr("magicleader", 120));
+					monster.addAttribute(new Attr("magicleader", 150));
 				}
 				if (largeBitmap.contains("superiormagicleader")) {
-					monster.addAttribute(new Attr("magicleader", 160));
+					monster.addAttribute(new Attr("magicleader", 200));
 				}
 				if (largeBitmap.contains("poorundeadleader")) {
 					monster.addAttribute(new Attr("undeadleader", 10));
 				}
 				if (largeBitmap.contains("okundeadleader")) {
-					monster.addAttribute(new Attr("undeadleader", 40));
+					monster.addAttribute(new Attr("undeadleader", 50));
 				}
 				if (largeBitmap.contains("goodundeadleader")) {
-					monster.addAttribute(new Attr("undeadleader", 80));
+					monster.addAttribute(new Attr("undeadleader", 100));
 				}
 				if (largeBitmap.contains("expertundeadleader")) {
-					monster.addAttribute(new Attr("undeadleader", 120));
+					monster.addAttribute(new Attr("undeadleader", 150));
 				}
 				if (largeBitmap.contains("superiorundeadleader")) {
-					monster.addAttribute(new Attr("undeadleader", 160));
+					monster.addAttribute(new Attr("undeadleader", 200));
 				}
 				
 				if (largeBitmap.contains("coldres15")) {
@@ -1133,6 +1147,7 @@ public class MonsterStatIndexer extends AbstractStatIndexer {
 					monster.addAttribute(new Attr("S", magicStrip(monMagic.S)));
 					monster.addAttribute(new Attr("D", magicStrip(monMagic.D)));
 					monster.addAttribute(new Attr("N", magicStrip(monMagic.N)));
+					monster.addAttribute(new Attr("G", magicStrip(monMagic.G)));
 					monster.addAttribute(new Attr("B", magicStrip(monMagic.B)));
 					monster.addAttribute(new Attr("H", magicStrip(monMagic.H)));
 					
@@ -1159,6 +1174,7 @@ public class MonsterStatIndexer extends AbstractStatIndexer {
 				if (monster.getAttribute("itemslots") != null) {
 					String slots = monster.getAttribute("itemslots").toString();
 					int numHands = 0;
+					int numBows = 0;
 					int numHeads = 0;
 					int numBody = 0;
 					int numFoot = 0;
@@ -1178,39 +1194,43 @@ public class MonsterStatIndexer extends AbstractStatIndexer {
 						numHands++;
 					}
 					if ((val & 0x0080) != 0) {
-						numHeads++;
+						numHands++;
 					}
 					if ((val & 0x0100) != 0) {
-						numHeads++;
+						numHands++;
 					}
 					if ((val & 0x0200) != 0) {
-						numHeads++;
-					}
-					if ((val & 0x0400) != 0) {
-						numBody++;
-					}
-					if ((val & 0x0800) != 0) {
-						numFoot++;
-					}
-					if ((val & 0x1000) != 0) {
-						numMisc++;
+						numBows++;
 					}
 					if ((val & 0x2000) != 0) {
-						numMisc++;
+						numHeads++;
 					}
 					if ((val & 0x4000) != 0) {
-						numMisc++;
-					}
-					if ((val & 0x8000) != 0) {
-						numMisc++;
+						numHeads++;
 					}
 					if ((val & 0x10000) != 0) {
-						numMisc++;
+						numBody++;
+					}
+					if ((val & 0x20000) != 0) {
+						numFoot++;
 					}
 					if ((val & 0x40000) != 0) {
+						numMisc++;
+					}
+					if ((val & 0x80000) != 0) {
+						numMisc++;
+					}
+					if ((val & 0x100000) != 0) {
+						numMisc++;
+					}
+					if ((val & 0x200000) != 0) {
+						numMisc++;
+					}
+					if ((val & 0x1000000) != 0) {
 						crownOnly = true;
 					}
 					monster.addAttribute(new Attr("hand", numHands));
+					monster.addAttribute(new Attr("bow", numBows));
 					monster.addAttribute(new Attr("head", numHeads));
 					monster.addAttribute(new Attr("body", numBody));
 					monster.addAttribute(new Attr("foot", numFoot));
