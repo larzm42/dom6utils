@@ -29,6 +29,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.StringTokenizer;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 public abstract class AbstractStatIndexer {
 	protected static String EXE_NAME = "Dominions6.exe";
@@ -308,9 +310,13 @@ public abstract class AbstractStatIndexer {
 		}
 	}
 	
-	protected static void dumpUnknown(Set<String> attr, BufferedWriter writer) throws IOException {
-		for (String att : attr) {
-			writer.write(att);
+	protected static void dumpUnknown(List<String> attr, BufferedWriter writer) throws IOException {
+		Map<String, Long> result = attr.stream()
+			    .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
+		for (Map.Entry<String, Long> att : result.entrySet()) {
+			writer.write(att.getKey());
+			writer.write(" ");
+			writer.write(att.getValue().toString());
 			writer.newLine();
 		}
 	}

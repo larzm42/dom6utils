@@ -26,9 +26,7 @@ import java.io.Reader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.TreeMap;
-import java.util.TreeSet;
 
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFRow;
@@ -172,7 +170,7 @@ public class SiteStatIndexer extends AbstractStatIndexer {
 	        int ch;
 			stream = new FileInputStream(EXE_NAME);			
 			stream.skip(Starts.SITE);
-			Set<String> unknown = new TreeSet<String>();
+			List<String> unknown = new ArrayList<String>();
 
 			// Name
 			InputStreamReader isr = new InputStreamReader(stream, "ISO-8859-1");

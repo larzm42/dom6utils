@@ -31,7 +31,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.TreeSet;
 
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFRow;
@@ -52,7 +51,7 @@ public class MonsterStatIndexer extends AbstractStatIndexer {
 			"noriverpass", "sailingshipsize", "sailingmaxunitsize", "stealthy", "illusion", "spy", "assassin", "patience", "seduce", "succubus", 
 			"corrupt", "heal", "immortal", "domimmortal", "reinc", "noheal", "neednoteat", "homesick", "undisciplined", "formationfighter", "slave", "standard", 
 			"inspirational", "taskmaster", "beastmaster", "bodyguard", "waterbreathing", "iceprot", "invulnerable", "slashres", "bluntres", "pierceres", 
-			"shockres", "fireres", "coldres", "poisonres", "voidsanity", "darkvision", "blind", "animalawe", "awe", "haltheretic", "fear", "berserk", "cold", 
+			"shockres", "fireres", "coldres", "poisonres", "acidres", "voidsanity", "darkvision", "blind", "animalawe", "awe", "haltheretic", "fear", "berserk", "cold", 
 			"heat", "fireshield", "banefireshield", "damagerev", "poisoncloud", "diseasecloud", "slimer", "mindslime", "reform", "regeneration", 
 			"reanimator", "poisonarmor", "petrify", "eyeloss", "ethereal", "ethtrue", "deathcurse", "trample", "trampswallow", "stormpower", "firepower", 
 			"coldpower", "darkpower", "chaospower", "magicpower", "winterpower", "springpower", "summerpower", "fallpower", "forgebonus", "fixforgebonus", 
@@ -87,7 +86,7 @@ public class MonsterStatIndexer extends AbstractStatIndexer {
 			"hpoverflow", "indepstay", "polyimmune", "horrormark", "deathdisease", "allret", "percentpathreduction", "aciddigest", "beckon", "slaverbonus", "carcasscollector", 
 			"mindcollar", "labpromotion", "mountainrec", "indepspells", "enchrebate50", "summon1", "randomspell", "deathpower", "deathrec", "norange", "insanify", "reanimator", 
 			"defector", "nohof", "batstartsum1d3", "enchrebate10", "undying", "moralebonus", "uncurableaffliction", "autoblessed", "wintersummon1d3", "stygianguide", "almostundead", 
-			"end"}; 
+			"truesight", "smartmount", "mobilearcher", "reformingflesh", "fearoftheflood", "end"}; 
 			
 		
 			
@@ -104,7 +103,12 @@ public class MonsterStatIndexer extends AbstractStatIndexer {
 	private static String[][] KNOWN_MONSTER_ATTRS = {
 		{"F703", "mountmnr"},
 		{"4904", "skilledrider"},
-
+		{"F303", "truesight"},
+		{"FC03", "smartmount"},
+		{"2004", "mobilearcher"},
+		{"2C04", "reformingflesh"},
+		{"0904", "fearoftheflood"},
+		
 		{"6C00", "stealthy"},
 		{"C900", "coldres"},
 		{"DC00", "cold"},
@@ -115,14 +119,14 @@ public class MonsterStatIndexer extends AbstractStatIndexer {
 		{"6A00", "poisoncloud"},
 		{"CD01", "patience"},
 		{"AF00", "stormimmune"},
-		{"BD00", "regeneration"},
+		{"2904", "regeneration"},
 		{"C100", "shapechange"},
 		{"C200", "secondshape"},
 		{"C300", "firstshape"},
 		{"C400", "secondtmpshape"},
 		{"C500", "secondshape"},
 		{"1C01", "maxage"},
-		{"CA00", "damagerev"},
+		{"CA00", "acidres"},
 		{"9E01", "bloodvengeance"},
 		{"EB00", "nobadevents"},
 		{"E400", "bringeroffortune"},
@@ -132,7 +136,7 @@ public class MonsterStatIndexer extends AbstractStatIndexer {
 		{"6700", "standard"},
 		{"6E01", "formationfighter"},
 		{"6F01", "undisciplined"},
-		{"9801", "bodyguard"},
+		{"B001", "bodyguard"},
 		{"A400", "summon"},
 		{"A500", "summon"},
 		{"A600", "summon"},
@@ -197,9 +201,9 @@ public class MonsterStatIndexer extends AbstractStatIndexer {
 		{"4201", "forestshape"},
 		{"4301", "plainshape"},
 		{"FE01", "xpshape"},
-		{"DD00", "uwregen"},
+		{"2B04", "uwregen"},
 		{"AA00", "patrolbonus"},
-		{"D700", "castledef"},
+		{"5E04", "castledef"},
 		{"7000", "sailingshipsize"}, // normally built into #sailing
 		{"9A01", "sailingmaxunitsize"}, // normally built into #sailing
 		{"DF00", "incunrest"},
@@ -371,7 +375,7 @@ public class MonsterStatIndexer extends AbstractStatIndexer {
 		{"7601", "digest"},
 		{"7602", "indepmove"},
 		{"7801", "unteleportable"},
-		{"7802", "reanimpriest"},
+		{"3704", "reanimpriest"},
 		{"7E02", "stunimmunity"},
 		{"8000", "entangle"}, // formerly vineshield
 		{"8400", "alchemy"},
@@ -552,7 +556,7 @@ public class MonsterStatIndexer extends AbstractStatIndexer {
 	        int ch;
 			stream = new FileInputStream(EXE_NAME);			
 			stream.skip(Starts.MONSTER_MAGIC);
-			Set<String> unknown = new TreeSet<String>();
+			List<String> unknown = new ArrayList<String>();
 
 			// magic
 			byte[] c = new byte[4];
@@ -917,7 +921,7 @@ public class MonsterStatIndexer extends AbstractStatIndexer {
 						}
 					}
 					if (!found) {
-						monster.addAttribute(new Attr("\tUnknown Attribute<" + attr.attribute + ">", attr.values.get(0)));							
+						monster.addAttribute(new Attr("\tUnknown Attribute<" + attr.attribute + ">", attr.values.get(0)));
 						unknown.add(attr.attribute);
 					}
 				}
@@ -1245,6 +1249,7 @@ public class MonsterStatIndexer extends AbstractStatIndexer {
 					}
 				} else if (!largeBitmap.contains("misc2")) {
 					monster.addAttribute(new Attr("hand", 2));
+					monster.addAttribute(new Attr("bow", 1));
 					monster.addAttribute(new Attr("head", 1));
 					monster.addAttribute(new Attr("body", 1));
 					monster.addAttribute(new Attr("foot", 1));
@@ -1522,5 +1527,4 @@ public class MonsterStatIndexer extends AbstractStatIndexer {
 		writer.newLine();
 	}
 
-	
 }

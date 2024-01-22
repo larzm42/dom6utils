@@ -26,9 +26,7 @@ import java.io.Reader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.TreeMap;
-import java.util.TreeSet;
 
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFRow;
@@ -63,7 +61,7 @@ public class ItemStatIndexer extends AbstractStatIndexer {
 			"allunitslooklikebearertoscouts", "monstermustbepresent", "banishkiller", "onlyuseablebyfliersormounted", "masterritualist", "stunattackers",
 			"eatforyouth", "startitem", "swimming", "localsun", "poisonarmor", "curserandomunits", "voidbanishchance", "voidret", "chancetobecomewerewolf", "stormimmune", "farsail", 
 			"lesserhorrorattackchance", "islance", "commaster", "comslave", "nofind", "chestwound", "feeblemind", "enlargement", "limitedenlargement", "antimagic", "soulvortex", 
-			"disbelieve", "truesight", "itemcost1", "itemost2", "end"};																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																				
+			"disbelieve", "truesight", "itemcost1", "itemost2", "falsesupplies", "end"};																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																				
 
 
 	private static String[][] KNOWN_ITEM_ATTRS = {
@@ -262,7 +260,7 @@ public class ItemStatIndexer extends AbstractStatIndexer {
 			{"E100", "curserandomunits"},
 			{"3701", "voidbanishchance"},
 			{"4D01", "voidret"},
-			{"7B00", "chancetobecomewerewolf"},
+			{"7B00", "falsesupplies"},
 			{"AF00", "stormimmune"},
 			{"8902", "farsail"},
 			{"7800", "lesserhorrorattackchance"},
@@ -321,7 +319,7 @@ public class ItemStatIndexer extends AbstractStatIndexer {
 	        int ch;
 			stream = new FileInputStream(EXE_NAME);			
 			stream.skip(startIndex);
-			Set<String> unknownAttributes = new TreeSet<String>();
+			List<String> unknownAttributes = new ArrayList<String>();
 			
 			// Name
 			InputStreamReader isr = new InputStreamReader(stream, "ISO-8859-1");
