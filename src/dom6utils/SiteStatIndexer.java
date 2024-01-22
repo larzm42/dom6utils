@@ -129,12 +129,15 @@ public class SiteStatIndexer extends AbstractStatIndexer {
 			{"FE00", "astralrange"},
 			{"FF00", "deathrange"},
 			{"0001", "naturerange"},
-			{"0101", "bloodrange"},
-			{"0201", "elementrange"},
-			{"0301", "sorceryrange"},
-			{"0401", "allrange"},
-			{"1F00", "incscale"},
-			{"6A00", "decscale"},
+			{"0101", "glamourrange"},
+			{"0201", "bloodrange"},
+			{"0301", "elementrange"},
+			{"0401", "sorceryrange"},
+			{"0501", "allrange"},
+			
+			{"6600", "incscale"},
+			{"6700", "decscale"},
+			
 			{"7F01", "bringgold"},
 			{"7602", "scorch"},
 			
@@ -259,14 +262,14 @@ public class SiteStatIndexer extends AbstractStatIndexer {
 				String[] opposite = {"Order", "Productivity", "Heat", "Growth", "Luck", "Magic"};
 				String scalesValue[] = {"", ""};
 				int index = 0;
-				if (attributes.contains(new AttributeValue("1F00"))) {
-					AttributeValue attributeValue = attributes.get(attributes.indexOf(new AttributeValue("1F00")));
+				if (attributes.contains(new AttributeValue("6600"))) {
+					AttributeValue attributeValue = attributes.get(attributes.indexOf(new AttributeValue("6600")));
 					for (String vals : attributeValue.values) {
 						scalesValue[index++] = opposite[Integer.parseInt(vals)];
 					}
 				}
-				if (attributes.contains(new AttributeValue("2000"))) {
-					AttributeValue attributeValue = attributes.get(attributes.indexOf(new AttributeValue("2000")));
+				if (attributes.contains(new AttributeValue("6700"))) {
+					AttributeValue attributeValue = attributes.get(attributes.indexOf(new AttributeValue("6700")));
 					for (String vals : attributeValue.values) {
 						scalesValue[index++] = scales[Integer.parseInt(vals)];
 					}
@@ -275,8 +278,8 @@ public class SiteStatIndexer extends AbstractStatIndexer {
 				site.parameters.put("scale2", scalesValue[1]);
 				
 				// rit/ritrng
-				boolean[] boolPaths = {false, false, false, false, false, false, false, false};
-				String[] boolPathsStr = {"F", "A", "W", "E", "S", "D", "N", "B"};
+				boolean[] boolPaths = {false, false, false, false, false, false, false, false, false};
+				String[] boolPathsStr = {"F", "A", "W", "E", "S", "D", "N", "G", "B"};
 				String value = "";
 				if (attributes.contains(new AttributeValue("FA00"))) {
 					AttributeValue attributeValue = attributes.get(attributes.indexOf(new AttributeValue("FA00")));
@@ -318,25 +321,25 @@ public class SiteStatIndexer extends AbstractStatIndexer {
 					value = attributeValue.values.get(0);
 					boolPaths[7] = true;
 				}
-				if (attributes.contains(new AttributeValue("0101"))) {
-					AttributeValue attributeValue = attributes.get(attributes.indexOf(new AttributeValue("0101")));
-					value = attributeValue.values.get(0);
-					boolPaths[7] = true;
-				}
 				if (attributes.contains(new AttributeValue("0201"))) {
 					AttributeValue attributeValue = attributes.get(attributes.indexOf(new AttributeValue("0201")));
 					value = attributeValue.values.get(0);
-					boolPaths = new boolean[]{true, true, true, true, false, false, false, false};
+					boolPaths[8] = true;
 				}
 				if (attributes.contains(new AttributeValue("0301"))) {
 					AttributeValue attributeValue = attributes.get(attributes.indexOf(new AttributeValue("0301")));
 					value = attributeValue.values.get(0);
-					boolPaths = new boolean[]{false, false, false, false, true, true, true, true};
+					boolPaths = new boolean[]{true, true, true, true, false, false, false, false, false};
 				}
 				if (attributes.contains(new AttributeValue("0401"))) {
 					AttributeValue attributeValue = attributes.get(attributes.indexOf(new AttributeValue("0401")));
 					value = attributeValue.values.get(0);
-					boolPaths = new boolean[]{true, true, true, true, true, true, true, true};
+					boolPaths = new boolean[]{false, false, false, false, true, true, true, true, true};
+				}
+				if (attributes.contains(new AttributeValue("0501"))) {
+					AttributeValue attributeValue = attributes.get(attributes.indexOf(new AttributeValue("0501")));
+					value = attributeValue.values.get(0);
+					boolPaths = new boolean[]{true, true, true, true, true, true, true, true, true};
 				}
 				StringBuffer rit = new StringBuffer();
 				for (int x = 0; x < boolPaths.length; x++) {
