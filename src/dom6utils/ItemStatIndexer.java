@@ -40,7 +40,7 @@ import dom6utils.CSVWriter.SSType;
 
 public class ItemStatIndexer extends AbstractStatIndexer {
 	public static String[] items_columns = {"id", "name", "type", "constlevel", "mainpath", "mainlevel", "secondarypath", "secondarylevel", "weapon", "armor", 
-			"shockres", "fireres", "coldres", "poisonres", "darkvision", "airshield", "limitedregeneration", "woundfend", "fixforge", "autodishealer", "healer", 
+			"shockres", "fireres", "coldres", "poisonres", "acidres", "darkvision", "airshield", "limitedregeneration", "woundfend", "fixforge", "autodishealer", "healer", 
 			"alch", "insa", "hp", "protf", "protb", "mr", "morale", "str", "att", "def", "prec", "enc", "mapspeed", "ap", "reinvigoration", "pen", "stealth", 
 			"stealthb", "forest", "mount", "waste", "swamp", "fly", "float", "sailingshipsize", "sailingmaxunitsize", "waterbreathing", "giftofwater", "airbr", 
 			"flytr", "quick", "eth", "trample", "bless", "luck", "foolsluck", "barkskin", "stoneskin", "ironskin", "curse", "disease", "cursed", "taint", "ldr-n", "ldr-u", "ldr-m", "inspirational", 
@@ -62,7 +62,8 @@ public class ItemStatIndexer extends AbstractStatIndexer {
 			"maxsizetoequip", "minstrtoequip", "minhandstoequip", "deathgemonkill", "deathexplosion", "chanceofattackbyknights", "singleuse", "domspreader",
 			"allunitslooklikebearertoscouts", "monstermustbepresent", "banishkiller", "onlyuseablebyfliersormounted", "masterritualist", "stunattackers",
 			"eatforyouth", "startitem", "swimming", "localsun", "poisonarmor", "curserandomunits", "voidbanishchance", "voidret", "chancetobecomewerewolf", "stormimmune", "farsail", 
-			"lesserhorrorattackchance", "islance", "commaster", "comslave", "nofind", "chestwound", "feeblemind", "enlargement", "limitedenlargement", "antimagic", "soulvortex", "disbelieve", "truesight", "end"};																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																				
+			"lesserhorrorattackchance", "islance", "commaster", "comslave", "nofind", "chestwound", "feeblemind", "enlargement", "limitedenlargement", "antimagic", "soulvortex", 
+			"disbelieve", "truesight", "itemcost1", "itemost2", "end"};																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																				
 
 
 	private static String[][] KNOWN_ITEM_ATTRS = {
@@ -220,7 +221,7 @@ public class ItemStatIndexer extends AbstractStatIndexer {
 			{"BF00", "iceprot"},
 			{"C401", "goldgen"},
 			{"C601", "magiceye"},
-			{"CA00", "damagereversal"},
+			{"CA00", "acidres"},
 			{"CB01", "mustfightinarena"},
 			{"D300", "inquisitor"},
 			{"D500", "assassin"},
@@ -268,6 +269,9 @@ public class ItemStatIndexer extends AbstractStatIndexer {
 			{"9D02", "islance"},
 			{"6004", "disbelieve"},
 			{"F303", "truesight"},
+			{"7805", "itemcost1"},
+			{"7905", "itemcost2"},
+
 			
 	};
 	

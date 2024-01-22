@@ -81,8 +81,13 @@ public class MonsterStatIndexer extends AbstractStatIndexer {
 			"summon5", "ainorec", "researchwithoutmagic", "slaver", "autocompete", "deathparalyze", "adventurers", "cleanshape", "reqlab",
 			"reqtemple", "horrormarked", "changetargetgenderforseductionandseductionimmune", "corpseconstruct", "guardianspiritmodifier", "isashah", "iceforging",
 			"isayazad", "isadaeva", "blessfly", "plant", "clockworklord", "commaster", "comslave", "minsizeleader", "snowmove", "swimming", "stupid",
-			"skirmisher", "ironvul", "heathensummon", "unseen", "illusionary", "reformtime","immortalrespawn", "nomovepen", "wolf", "dungeon", 
-			"graphicsize", "twiceborn", "aboleth", "tmpastralgems", "localsun", "tmpfiregems", "defiler", "mountedbeserk", "lanceok", "startheroab", "minprison", "uwfireshield", "saltvul", "landenc", "plaguedoctor", "curseluckshield", "pathboostuw", "pathboostland", "noarmormapmovepenalty", "farthronekill", "hpoverflow", "indepstay", "polyimmune", "horrormark", "deathdisease", "allret", "percentpathreduction", "aciddigest", "beckon", "slaverbonus", "carcasscollector", "mindcollar", "labpromotion", "mountainrec", "indepspells", "enchrebate50", "summon1", "randomspell", "deathpower", "deathrec", "norange", "insanify", "reanimator", "defector", "nohof", "batstartsum1d3", "enchrebate10", "undying", "moralebonus", "uncurableaffliction", "autoblessed", "wintersummon1d3", "stygianguide", "almostundead", "end"}; 
+			"skirmisher", "ironvul", "heathensummon", "unseen", "powerofdeath", "reformtime","immortalrespawn", "nomovepen", "wolf", "dungeon", 
+			"graphicsize", "twiceborn", "aboleth", "tmpastralgems", "localsun", "tmpfiregems", "defiler", "mountedbeserk", "lanceok", "startheroab", "minprison", 
+			"uwfireshield", "saltvul", "landenc", "plaguedoctor", "curseluckshield", "pathboostuw", "pathboostland", "noarmormapmovepenalty", "farthronekill", 
+			"hpoverflow", "indepstay", "polyimmune", "horrormark", "deathdisease", "allret", "percentpathreduction", "aciddigest", "beckon", "slaverbonus", "carcasscollector", 
+			"mindcollar", "labpromotion", "mountainrec", "indepspells", "enchrebate50", "summon1", "randomspell", "deathpower", "deathrec", "norange", "insanify", "reanimator", 
+			"defector", "nohof", "batstartsum1d3", "enchrebate10", "undying", "moralebonus", "uncurableaffliction", "autoblessed", "wintersummon1d3", "stygianguide", "almostundead", 
+			"end"}; 
 			
 		
 			
@@ -315,7 +320,7 @@ public class MonsterStatIndexer extends AbstractStatIndexer {
 		{"1700", "elementrange"},
 		{"1800", "sorceryrange"},
 		{"1E01", "older"}, // formerly startagemodifier
-		{"2601", "illusionary"},
+		{"2601", "powerofdeath"},
 		{"2701", "disbelieve"},
 		{"2800", "firerange"},
 		{"2C00", "astralrange"},
