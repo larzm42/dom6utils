@@ -86,7 +86,7 @@ public class MonsterStatIndexer extends AbstractStatIndexer {
 			"hpoverflow", "indepstay", "polyimmune", "horrormark", "deathdisease", "allret", "percentpathreduction", "aciddigest", "beckon", "slaverbonus", "carcasscollector", 
 			"mindcollar", "labpromotion", "mountainrec", "indepspells", "enchrebate50", "summon1", "randomspell", "deathpower", "deathrec", "norange", "insanify", "reanimator", 
 			"defector", "nohof", "batstartsum1d3", "enchrebate10", "undying", "moralebonus", "uncurableaffliction", "autoblessed", "wintersummon1d3", "stygianguide", "almostundead", 
-			"truesight", "smartmount", "mobilearcher", "reformingflesh", "fearoftheflood", "spiritform", "end"}; 
+			"truesight", "smartmount", "mobilearcher", "reformingflesh", "fearoftheflood", "spiritform", "chorusslave", "chorusmaster", "end"}; 
 			
 		
 			
@@ -108,6 +108,8 @@ public class MonsterStatIndexer extends AbstractStatIndexer {
 		{"2004", "mobilearcher"},
 		{"2C04", "reformingflesh"},
 		{"0904", "fearoftheflood"},
+		{"5504", "chorusslave"},
+		{"5604", "chorusmaster"},
 		
 		{"6C00", "stealthy"},
 		{"C900", "coldres"},
