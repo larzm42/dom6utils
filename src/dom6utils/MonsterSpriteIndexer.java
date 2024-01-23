@@ -289,7 +289,7 @@ public class MonsterSpriteIndexer {
 							if (myList.indexOf("smeg") != -1) continue;
 							SortedByOffset sortedByOffset = new SortedByOffset(myList);
 							if (entry.getValue().equals("first")) {
-								if (sortedByOffset.getIntValue() < 450) {
+								if (sortedByOffset.getIntValue() < 458) {
 									sortedSet.add(new SortedByOffset(myList));
 								}
 							} else if (entry.getValue().equals("gath 3")) {

@@ -61,16 +61,20 @@ public class ItemStatIndexer extends AbstractStatIndexer {
 			"allunitslooklikebearertoscouts", "monstermustbepresent", "banishkiller", "onlyuseablebyfliersormounted", "masterritualist", "stunattackers",
 			"eatforyouth", "startitem", "swimming", "localsun", "poisonarmor", "curserandomunits", "voidbanishchance", "voidret", "chancetobecomewerewolf", "stormimmune", "farsail", 
 			"lesserhorrorattackchance", "islance", "commaster", "comslave", "nofind", "chestwound", "feeblemind", "enlargement", "limitedenlargement", "antimagic", "soulvortex", 
-			"disbelieve", "truesight", "itemcost1", "itemost2", "falsesupplies", "end"};																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																				
+			"disbelieve", "truesight", "itemcost1", "itemost2", "falsesupplies", "bestowtomount", "extraarms", "nomount", "noinanimate", "end"};																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																				
 
 
 	private static String[][] KNOWN_ITEM_ATTRS = {
+			{"9D05", "bestowtomount"},
+			{"9805", "extraarms"},
+			{"8905", "typeres"},
+			
 			{"C600", "fireres"},
 			{"C900", "coldres"},
 			{"C800", "poisonres"},
 			{"C700", "shockres"},
 			{"9D00", "ldr-n"},
-			{"9700", "str"},
+			{"2204", "str"},
 			{"C501", "fixforge"},
 			{"9E00", "ldr-m"},
 			{"9F00", "ldr-u"},
@@ -114,7 +118,7 @@ public class ItemStatIndexer extends AbstractStatIndexer {
 			{"6E00", "waterbreathing"},
 			{"8601", "stealthb"},
 			{"6C00", "stealth"},
-			{"9600", "att"},
+			{"2104", "att"},
 			{"7901", "def"},
 			{"9601", "woundfend"},
 			{"1601", "restricted#"},
@@ -429,6 +433,13 @@ public class ItemStatIndexer extends AbstractStatIndexer {
 								case("crown"): //HACK
 									item.parameters.put("type", "crown");
 									item.parameters.put(KNOWN_ITEM_ATTRS[x][1], attr.values.get(0));
+									break;
+								case("typeres"):
+									if (attr.values.get(0).equals("2")) {
+										item.parameters.put("nomount", "1");
+									} else if (attr.values.get(0).equals("1073741824")) {
+										item.parameters.put("noinanimate", "1");										
+									}
 									break;
 								default:
 									item.parameters.put(KNOWN_ITEM_ATTRS[x][1], attr.values.get(0));

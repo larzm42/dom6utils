@@ -49,6 +49,14 @@ public class SiteStatIndexer extends AbstractStatIndexer {
 			"end"};																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																									
 
 	private static String[][] KNOWN_SITE_ATTRS = {
+			{"2602", "summon1"},
+			{"2702", "summon2"},
+			{"2802", "summon3"},
+			{"2902", "summon4"},
+			{"2A02", "summon5"},
+			{"2B02", "summon6"},
+
+			
 			{"0100", "F"},
 			{"0200", "A"},
 			{"0300", "W"},
@@ -59,7 +67,7 @@ public class SiteStatIndexer extends AbstractStatIndexer {
 			{"0800", "G"},
 			{"0900", "B"},
 			{"0D00", "gold"},
-			{"0E00", "res"},
+			{"8001", "res"},
 			{"1400", "sup"},
 			{"1300", "unr"},
 			{"1600", "exp"},
@@ -85,7 +93,6 @@ public class SiteStatIndexer extends AbstractStatIndexer {
 			{"4800", "scry"},
 			{"C000", "adventure"},
 			{"3900", "voidgate"},
-			{"1200", "summoning"},
 			{"1501", "domspread"},
 			{"1901", "turmoil"},
 			{"1A01", "sloth"},
@@ -135,9 +142,12 @@ public class SiteStatIndexer extends AbstractStatIndexer {
 			{"0401", "sorceryrange"},
 			{"0501", "allrange"},
 			
-			{"6600", "incscale"},
-			{"6700", "decscale"},
-			
+			{"6400", "incscale1"},
+			{"6600", "incscale2"},			
+			{"6800", "incscale3"},
+			{"6A00", "incscale4"},
+			{"6700", "deccscale2"},
+
 			{"7F01", "bringgold"},
 			{"7602", "scorch"},
 			
@@ -262,16 +272,35 @@ public class SiteStatIndexer extends AbstractStatIndexer {
 				String[] opposite = {"Order", "Productivity", "Heat", "Growth", "Luck", "Magic"};
 				String scalesValue[] = {"", ""};
 				int index = 0;
+				
+				if (attributes.contains(new AttributeValue("6400"))) {
+					AttributeValue attributeValue = attributes.get(attributes.indexOf(new AttributeValue("6400")));
+					for (String vals : attributeValue.values) {
+						scalesValue[index++] = opposite[Integer.parseInt(vals)] + "(max 1)";
+					}
+				}
 				if (attributes.contains(new AttributeValue("6600"))) {
 					AttributeValue attributeValue = attributes.get(attributes.indexOf(new AttributeValue("6600")));
 					for (String vals : attributeValue.values) {
-						scalesValue[index++] = opposite[Integer.parseInt(vals)];
+						scalesValue[index++] = opposite[Integer.parseInt(vals)] + "(max 2)";
+					}
+				}
+				if (attributes.contains(new AttributeValue("6800"))) {
+					AttributeValue attributeValue = attributes.get(attributes.indexOf(new AttributeValue("6800")));
+					for (String vals : attributeValue.values) {
+						scalesValue[index++] = opposite[Integer.parseInt(vals)] + "(max 3)";
+					}
+				}
+				if (attributes.contains(new AttributeValue("6A00"))) {
+					AttributeValue attributeValue = attributes.get(attributes.indexOf(new AttributeValue("6A00")));
+					for (String vals : attributeValue.values) {
+						scalesValue[index++] = opposite[Integer.parseInt(vals)] + "(max 4)";
 					}
 				}
 				if (attributes.contains(new AttributeValue("6700"))) {
 					AttributeValue attributeValue = attributes.get(attributes.indexOf(new AttributeValue("6700")));
 					for (String vals : attributeValue.values) {
-						scalesValue[index++] = scales[Integer.parseInt(vals)];
+						scalesValue[index++] = scales[Integer.parseInt(vals)] + "(max 2)";
 					}
 				}
 				site.parameters.put("scale1", scalesValue[0]);
@@ -359,24 +388,117 @@ public class SiteStatIndexer extends AbstractStatIndexer {
 				int sum3count = 0;
 				String sum4 = null;
 				int sum4count = 0;
-				if (attributes.contains(new AttributeValue("1200"))) {
-					AttributeValue attributeValue = attributes.get(attributes.indexOf(new AttributeValue("1200")));
+				
+				if (attributes.contains(new AttributeValue("2602"))) {
+					AttributeValue attributeValue = attributes.get(attributes.indexOf(new AttributeValue("2602")));
 					for (String val : attributeValue.values) {
-						if (sum1 == null || sum1.equals(val)) {
+						if (sum1 == null) {
 							sum1 = val;
-							sum1count++;
-						} else if (sum2 == null || sum2.equals(val)) {
+							sum1count = 1;
+						} else if (sum2 == null) {
 							sum2 = val;
-							sum2count++;
-						} else if (sum3 == null || sum3.equals(val)) {
+							sum2count = 1;
+						} else if (sum3 == null) {
 							sum3 = val;
-							sum3count++;
-						} else if (sum4 == null || sum4.equals(val)) {
+							sum3count = 1;
+						} else if (sum4 == null) {
 							sum4 = val;
-							sum4count++;
+							sum4count = 1;
 						}
 					}
 				}
+				if (attributes.contains(new AttributeValue("2702"))) {
+					AttributeValue attributeValue = attributes.get(attributes.indexOf(new AttributeValue("2702")));
+					for (String val : attributeValue.values) {
+						if (sum1 == null) {
+							sum1 = val;
+							sum1count = 2;
+						} else if (sum2 == null) {
+							sum2 = val;
+							sum2count = 2;
+						} else if (sum3 == null) {
+							sum3 = val;
+							sum3count = 2;
+						} else if (sum4 == null) {
+							sum4 = val;
+							sum4count = 2;
+						}
+					}
+				}
+				if (attributes.contains(new AttributeValue("2802"))) {
+					AttributeValue attributeValue = attributes.get(attributes.indexOf(new AttributeValue("2802")));
+					for (String val : attributeValue.values) {
+						if (sum1 == null) {
+							sum1 = val;
+							sum1count = 3;
+						} else if (sum2 == null) {
+							sum2 = val;
+							sum2count = 3;
+						} else if (sum3 == null) {
+							sum3 = val;
+							sum3count = 3;
+						} else if (sum4 == null) {
+							sum4 = val;
+							sum4count = 3;
+						}
+					}
+				}
+				if (attributes.contains(new AttributeValue("2902"))) {
+					AttributeValue attributeValue = attributes.get(attributes.indexOf(new AttributeValue("2902")));
+					for (String val : attributeValue.values) {
+						if (sum1 == null) {
+							sum1 = val;
+							sum1count = 4;
+						} else if (sum2 == null) {
+							sum2 = val;
+							sum2count = 4;
+						} else if (sum3 == null) {
+							sum3 = val;
+							sum3count = 4;
+						} else if (sum4 == null) {
+							sum4 = val;
+							sum4count = 4;
+						}
+					}
+				}
+				if (attributes.contains(new AttributeValue("2A02"))) {
+					AttributeValue attributeValue = attributes.get(attributes.indexOf(new AttributeValue("2A02")));
+					for (String val : attributeValue.values) {
+						if (sum1 == null) {
+							sum1 = val;
+							sum1count = 5;
+						} else if (sum2 == null) {
+							sum2 = val;
+							sum2count = 5;
+						} else if (sum3 == null) {
+							sum3 = val;
+							sum3count = 5;
+						} else if (sum4 == null) {
+							sum4 = val;
+							sum4count = 5;
+						}
+					}
+				}
+				if (attributes.contains(new AttributeValue("2B02"))) {
+					AttributeValue attributeValue = attributes.get(attributes.indexOf(new AttributeValue("2B02")));
+					for (String val : attributeValue.values) {
+						if (sum1 == null) {
+							sum1 = val;
+							sum1count = 6;
+						} else if (sum2 == null) {
+							sum2 = val;
+							sum2count = 6;
+						} else if (sum3 == null) {
+							sum3 = val;
+							sum3count = 6;
+						} else if (sum4 == null) {
+							sum4 = val;
+							sum4count = 6;
+						}
+					}
+				}
+
+				
 				if (sum1 != null) {
 					site.parameters.put("sum1", sum1);
 					site.parameters.put("n_sum1", sum1count);

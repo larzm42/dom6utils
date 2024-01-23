@@ -86,14 +86,14 @@ public class MonsterStatIndexer extends AbstractStatIndexer {
 			"hpoverflow", "indepstay", "polyimmune", "horrormark", "deathdisease", "allret", "percentpathreduction", "aciddigest", "beckon", "slaverbonus", "carcasscollector", 
 			"mindcollar", "labpromotion", "mountainrec", "indepspells", "enchrebate50", "summon1", "randomspell", "deathpower", "deathrec", "norange", "insanify", "reanimator", 
 			"defector", "nohof", "batstartsum1d3", "enchrebate10", "undying", "moralebonus", "uncurableaffliction", "autoblessed", "wintersummon1d3", "stygianguide", "almostundead", 
-			"truesight", "smartmount", "mobilearcher", "reformingflesh", "fearoftheflood", "end"}; 
+			"truesight", "smartmount", "mobilearcher", "reformingflesh", "fearoftheflood", "spiritform", "end"}; 
 			
 		
 			
 			
 	private static String values[][] = {{"heal", "mounted", "animal", "amphibian", "wastesurvival", "undead", "coldres15", "heat", "neednoteat", "fireres15", "poisonres15", "aquatic", "flying", "trample", "immobile", "immortal" },
 										{"cold", "forestsurvival", "shockres15", "swampsurvival", "demon", "holy", "mountainsurvival", "illusion", "noheal", "ethereal", "pooramphibian", "stealthy40", "misc2", "coldblood", "inanimate", "female" },
-										{"bluntres", "slashres", "pierceres", "slow_to_recruit", "float", "stormimmune", "teleport", "snowmove", "swimming", "domimmortal", "", "", "", "", "", "" },
+										{"bluntres", "slashres", "pierceres", "slow_to_recruit", "float", "stormimmune", "teleport", "snowmove", "swimming", "domimmortal", "", "", "spiritform", "", "", "" },
 										{"", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "" },
 										{"magicbeing", "", "requndeadleadership", "poormagicleader", "okmagicleader", "goodmagicleader", "expertmagicleader", "superiormagicleader", "poorundeadleader", "okundeadleader", "goodundeadleader", "expertundeadleader", "superiorundeadleader", "", "", "" },
 										{"", "", "", "", "stupid", "", "", "", "noleader", "poorleader", "goodleader", "expertleader", "superiorleader", "", "", "" },
