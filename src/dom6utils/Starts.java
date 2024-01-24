@@ -28,9 +28,6 @@ public class Starts {
 	
 	public static final long MONSTER_MAGIC = 0x03a49990l;
 	
-	public static final long ITEM_AND_MONSTER_DESC = 0x00237260l;
-	public static final long ITEM_AND_MONSTER_DESC_INDEX = 0x00392788l;
-	
 	//index = 0049d410
 	
 	//index = 0047dc90
@@ -52,8 +49,9 @@ public class Starts {
 	public static final long SPELL_ATTRIBUTE_GAP = 60l;
 	public static final long SPELL_SIZE = 280l;
 
-	public static final long SPELL_DESC = 0x003a6008l;
-	public static final long SPELL_DESC_INDEX = 0x003f1a70l;
+	public static final long DESC_OFFSET = 0x140001C00l;	
+	public static final long ITEM_AND_MONSTER_DESC_INDEX = 0x0049d410l;
+	public static final long SPELL_DESC_INDEX = 0x0047dc90l;
 
 	public static final long EVENT = 0x005f7d90l;
 	public static final long EVENT_ATTRIBUTE_OFFSET = 1408l;

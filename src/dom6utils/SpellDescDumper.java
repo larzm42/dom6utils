@@ -35,16 +35,22 @@ public class SpellDescDumper {
 			stream = new FileInputStream("Dominions6.exe");
 			stream.skip(Starts.SPELL_DESC_INDEX);
 
-			List<Integer> indexes = new ArrayList<Integer>();
-			int index = -1;
+			List<Long> indexes = new ArrayList<Long>();
+			long index = -1;
 			while (index != 0) {
-				byte[] d = new byte[4];
-				stream.read(d, 0, 4);
-				String high1 = String.format("%02X", d[3]);
-				String low1 = String.format("%02X", d[2]);
-				String high = String.format("%02X", d[1]);
-				String low = String.format("%02X", d[0]);
-				index = new BigInteger(high1 + low1 + high + low, 16).intValue();
+				byte[] c = new byte[8];
+				stream.read(c, 0, 8);
+				String high0 = String.format("%02X", c[7]);
+				String low0 = String.format("%02X", c[6]);
+				String high1 = String.format("%02X", c[5]);
+				String low1 = String.format("%02X", c[4]);
+				String high2 = String.format("%02X", c[3]);
+				String low2 = String.format("%02X", c[2]);
+				String high3 = String.format("%02X", c[1]);
+				String low3 = String.format("%02X", c[0]);
+				
+				index = new BigInteger(high0 + low0 + high1 + low1 + high2 + low2 + high3 + low3, 16).longValue();
+				
 				if (index != 0) {
 					indexes.add(index);
 				}
@@ -54,16 +60,14 @@ public class SpellDescDumper {
 			Path spellsDescPath = Files.createDirectories(Paths.get("spells"));
 			Files.walkFileTree(spellsDescPath, new DirCleaner());
 			
-			stream = new FileInputStream("Dominions6.exe");
 			byte[] b = new byte[1];
-			int firstIndex = indexes.get(0);
-			stream.skip(Starts.SPELL_DESC);
 			List<String> names = new ArrayList<String>();
 			String desc = null;
-			for (Integer offset : indexes) {
+			
+			for (Long offset : indexes) {
 				StringBuffer buffer = new StringBuffer();
 				stream = new FileInputStream("Dominions6.exe");
-				stream.skip(Starts.SPELL_DESC+offset-firstIndex);
+				stream.skip(offset-Starts.DESC_OFFSET);
 				while (stream.read(b) != -1) {
 					if (b[0] != 0) {
 						buffer.append(new String(new byte[] {b[0]}));

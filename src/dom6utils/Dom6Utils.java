@@ -35,10 +35,10 @@ public class Dom6Utils {
 		NationStatIndexer.run();
 		
 		// Descriptions
-//		System.out.println("Beginning item/monster descr"); 
-//		ItemMonsterDescDumper.run();
-//		System.out.println("Beginning spell descr"); 
-//		SpellDescDumper.run();
+		System.out.println("Beginning item/monster descr"); 
+		ItemMonsterDescDumper.run();
+		System.out.println("Beginning spell descr"); 
+		SpellDescDumper.run();
 		
 		// Events
 //		System.out.println("Beginning event stats"); 
