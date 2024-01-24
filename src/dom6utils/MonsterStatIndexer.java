@@ -110,6 +110,7 @@ public class MonsterStatIndexer extends AbstractStatIndexer {
 		{"0904", "fearoftheflood"},
 		{"5504", "chorusslave"},
 		{"5604", "chorusmaster"},
+		{"2804", "damagerev"},
 		
 		{"6C00", "stealthy"},
 		{"C900", "coldres"},
@@ -202,7 +203,7 @@ public class MonsterStatIndexer extends AbstractStatIndexer {
 		{"F600", "watershape"},
 		{"4201", "forestshape"},
 		{"4301", "plainshape"},
-		{"FE01", "xpshape"},
+		{"7904", "xpshape"},
 		{"2B04", "uwregen"},
 		{"AA00", "patrolbonus"},
 		{"5E04", "castledef"},
@@ -911,9 +912,6 @@ public class MonsterStatIndexer extends AbstractStatIndexer {
 								} else if (attr.values.get(0).equals("103")) {
 									monster.addAttribute(new Attr("spreadgrowth", 1));
 								}
-							} else if (KNOWN_MONSTER_ATTRS[x][1].equals("damagerev")) {
-								int val = Integer.parseInt(attr.values.get(0));
-								monster.addAttribute(new Attr(KNOWN_MONSTER_ATTRS[x][1], Integer.toString(val-1)));
 							} else if (KNOWN_MONSTER_ATTRS[x][1].equals("popkill")) {
 								int val = Integer.parseInt(attr.values.get(0));
 								monster.addAttribute(new Attr(KNOWN_MONSTER_ATTRS[x][1], Integer.toString(val*10)));

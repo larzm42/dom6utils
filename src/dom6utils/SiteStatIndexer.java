@@ -46,7 +46,7 @@ public class SiteStatIndexer extends AbstractStatIndexer {
 			"provdef1", "provdef2", "def", "F2", "A2", "W2", "E2", "S2", "D2", "N2", "B2", "awe", "reinvigoration", "airshield", "provdefcom", 
 			"domconflict", "sprite", "nationalrecruits", "natmon","natcom", "throneclustering","wilddefenders", "domconflict", "rituallevelmodifier",
 			"callgodbonus", "magicresistancebonus", "bringgold", "scorch", "evil", "scryrange", "addtolimitedrecruitment", "ageratereduction", "dragonlord", "corpselord", "ivylord", "maximizeorder",
-			"end"};																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																									
+			"pdconscript", "mr", "bringres", "provinc", "recpoints", "recpointpercent", "recpointpercentcmd", "agingpercent", "unaging", "end"};																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																									
 
 	private static String[][] KNOWN_SITE_ATTRS = {
 			{"2602", "summon1"},
@@ -55,7 +55,20 @@ public class SiteStatIndexer extends AbstractStatIndexer {
 			{"2902", "summon4"},
 			{"2A02", "summon5"},
 			{"2B02", "summon6"},
-
+			{"2C02", "summon7"},
+			{"2D02", "summon8"},
+			{"2E02", "summon9"},
+			{"2F02", "summon10"},
+			
+			{"1A00", "recpoints"},
+			{"6D01", "pdconscript"},
+			{"EB03", "mr"},
+			{"8001", "bringres"},
+			{"0D00", "provinc"},
+			{"C702", "recpointpercent"},
+			{"C802", "recpointpercentcmd"},
+			{"C902", "agingpercent"},
+			{"FC03", "unaging"},
 			
 			{"0100", "F"},
 			{"0200", "A"},
@@ -66,8 +79,8 @@ public class SiteStatIndexer extends AbstractStatIndexer {
 			{"0700", "N"},
 			{"0800", "G"},
 			{"0900", "B"},
-			{"0D00", "gold"},
-			{"8001", "res"},
+			{"9302", "gold"},
+			{"0E00", "res"},
 			{"1400", "sup"},
 			{"1300", "unr"},
 			{"1600", "exp"},
@@ -100,24 +113,24 @@ public class SiteStatIndexer extends AbstractStatIndexer {
 			{"1C01", "death"},
 			{"1D01", "misfortune"},
 			{"1E01", "drain"},
-			{"FB01", "fireres"},
-			{"FC01", "coldres"},
-			{"FA01", "str"},
+			{"EF03", "fireres"},
+			{"F003", "coldres"},
+			{"EE03", "str"},
 			{"0402", "prec"},
-			{"F401", "mor"},
-			{"FD01", "shockres"},
-			{"F801", "undying"},
-			{"F501", "att"},
-			{"FE01", "poisonres"},
-			{"0302", "darkvision"},
-			{"0102", "aawe"},
+			{"E803", "mor"},
+			{"F103", "shockres"},
+			{"EC03", "undying"},
+			{"E903", "att"},
+			{"F203", "poisonres"},
+			{"F703", "darkvision"},
+			{"F503", "aawe"},
 			{"1401", "throne"},
 			{"0A01", "fortparts"},
 			{"0601", "reveal"},
 			{"E000", "provdef#"},
-			{"F601", "def"},
+			{"EA03", "def"},
 			{"0202", "awe"},
-			{"FF01", "reinvigoration"},
+			{"F303", "reinvigoration"},
 			{"0002", "airshield"},
 			{"4A00", "provdefcom"},
 			{"7501", "nationalrecruits"},
@@ -380,140 +393,33 @@ public class SiteStatIndexer extends AbstractStatIndexer {
 				site.parameters.put("ritrng", value);
 				
 				// summoning
-				String sum1 = null;
-				int sum1count = 0;
-				String sum2 = null;
-				int sum2count = 0;
-				String sum3 = null;
-				int sum3count = 0;
-				String sum4 = null;
-				int sum4count = 0;
-				
-				if (attributes.contains(new AttributeValue("2602"))) {
-					AttributeValue attributeValue = attributes.get(attributes.indexOf(new AttributeValue("2602")));
-					for (String val : attributeValue.values) {
-						if (sum1 == null) {
-							sum1 = val;
-							sum1count = 1;
-						} else if (sum2 == null) {
-							sum2 = val;
-							sum2count = 1;
-						} else if (sum3 == null) {
-							sum3 = val;
-							sum3count = 1;
-						} else if (sum4 == null) {
-							sum4 = val;
-							sum4count = 1;
-						}
-					}
+				Summon summon = new Summon();
+				updateSummon(attributes, "2602", 1, summon);
+				updateSummon(attributes, "2702", 2, summon);
+				updateSummon(attributes, "2802", 3, summon);
+				updateSummon(attributes, "2902", 4, summon);
+				updateSummon(attributes, "2A02", 5, summon);
+				updateSummon(attributes, "2B02", 6, summon);
+				updateSummon(attributes, "2C02", 7, summon);
+				updateSummon(attributes, "2D02", 8, summon);
+				updateSummon(attributes, "2E02", 9, summon);
+				updateSummon(attributes, "2F02", 10, summon);
+								
+				if (summon.sum1 != null) {
+					site.parameters.put("sum1", summon.sum1);
+					site.parameters.put("n_sum1", summon.sum1count);
 				}
-				if (attributes.contains(new AttributeValue("2702"))) {
-					AttributeValue attributeValue = attributes.get(attributes.indexOf(new AttributeValue("2702")));
-					for (String val : attributeValue.values) {
-						if (sum1 == null) {
-							sum1 = val;
-							sum1count = 2;
-						} else if (sum2 == null) {
-							sum2 = val;
-							sum2count = 2;
-						} else if (sum3 == null) {
-							sum3 = val;
-							sum3count = 2;
-						} else if (sum4 == null) {
-							sum4 = val;
-							sum4count = 2;
-						}
-					}
+				if (summon.sum2 != null) {
+					site.parameters.put("sum2", summon.sum2);
+					site.parameters.put("n_sum2", summon.sum2count);
 				}
-				if (attributes.contains(new AttributeValue("2802"))) {
-					AttributeValue attributeValue = attributes.get(attributes.indexOf(new AttributeValue("2802")));
-					for (String val : attributeValue.values) {
-						if (sum1 == null) {
-							sum1 = val;
-							sum1count = 3;
-						} else if (sum2 == null) {
-							sum2 = val;
-							sum2count = 3;
-						} else if (sum3 == null) {
-							sum3 = val;
-							sum3count = 3;
-						} else if (sum4 == null) {
-							sum4 = val;
-							sum4count = 3;
-						}
-					}
+				if (summon.sum3 != null) {
+					site.parameters.put("sum3", summon.sum3);
+					site.parameters.put("n_sum3", summon.sum3count);
 				}
-				if (attributes.contains(new AttributeValue("2902"))) {
-					AttributeValue attributeValue = attributes.get(attributes.indexOf(new AttributeValue("2902")));
-					for (String val : attributeValue.values) {
-						if (sum1 == null) {
-							sum1 = val;
-							sum1count = 4;
-						} else if (sum2 == null) {
-							sum2 = val;
-							sum2count = 4;
-						} else if (sum3 == null) {
-							sum3 = val;
-							sum3count = 4;
-						} else if (sum4 == null) {
-							sum4 = val;
-							sum4count = 4;
-						}
-					}
-				}
-				if (attributes.contains(new AttributeValue("2A02"))) {
-					AttributeValue attributeValue = attributes.get(attributes.indexOf(new AttributeValue("2A02")));
-					for (String val : attributeValue.values) {
-						if (sum1 == null) {
-							sum1 = val;
-							sum1count = 5;
-						} else if (sum2 == null) {
-							sum2 = val;
-							sum2count = 5;
-						} else if (sum3 == null) {
-							sum3 = val;
-							sum3count = 5;
-						} else if (sum4 == null) {
-							sum4 = val;
-							sum4count = 5;
-						}
-					}
-				}
-				if (attributes.contains(new AttributeValue("2B02"))) {
-					AttributeValue attributeValue = attributes.get(attributes.indexOf(new AttributeValue("2B02")));
-					for (String val : attributeValue.values) {
-						if (sum1 == null) {
-							sum1 = val;
-							sum1count = 6;
-						} else if (sum2 == null) {
-							sum2 = val;
-							sum2count = 6;
-						} else if (sum3 == null) {
-							sum3 = val;
-							sum3count = 6;
-						} else if (sum4 == null) {
-							sum4 = val;
-							sum4count = 6;
-						}
-					}
-				}
-
-				
-				if (sum1 != null) {
-					site.parameters.put("sum1", sum1);
-					site.parameters.put("n_sum1", sum1count);
-				}
-				if (sum2 != null) {
-					site.parameters.put("sum2", sum2);
-					site.parameters.put("n_sum2", sum2count);
-				}
-				if (sum3 != null) {
-					site.parameters.put("sum3", sum3);
-					site.parameters.put("n_sum3", sum3count);
-				}
-				if (sum4 != null) {
-					site.parameters.put("sum4", sum4);
-					site.parameters.put("n_sum4", sum4count);
+				if (summon.sum4 != null) {
+					site.parameters.put("sum4", summon.sum4);
+					site.parameters.put("n_sum4", summon.sum4count);
 				}
 
 				siteList.add(site);
@@ -584,6 +490,28 @@ public class SiteStatIndexer extends AbstractStatIndexer {
 		}
 	}
 	
+	private static void updateSummon(List<AttributeValue> attributes, String id, int count, Summon summon) {
+		if (attributes.contains(new AttributeValue(id))) {
+			AttributeValue attributeValue = attributes.get(attributes.indexOf(new AttributeValue(id)));
+			for (String val : attributeValue.values) {
+				if (summon.sum1 == null) {
+					summon.sum1 = val;
+					summon.sum1count = count;
+				} else if (summon.sum2 == null) {
+					summon.sum2 = val;
+					summon.sum2count = count;
+				} else if (summon.sum3 == null) {
+					summon.sum3 = val;
+					summon.sum3count = count;
+				} else if (summon.sum4 == null) {
+					summon.sum4 = val;
+					summon.sum4count = count;
+				}
+			}
+		}
+
+	}
+	
 	private static void dumpTextFile(Site site, BufferedWriter writer) throws IOException {
 		Object name = site.parameters.get("name");
 		Object id = site.parameters.get("id");
@@ -600,6 +528,17 @@ public class SiteStatIndexer extends AbstractStatIndexer {
 
 	private static class Site {
 		Map<String, Object> parameters;
+	}
+	
+	private static class Summon {
+		String sum1 = null;
+		int sum1count = 0;
+		String sum2 = null;
+		int sum2count = 0;
+		String sum3 = null;
+		int sum3count = 0;
+		String sum4 = null;
+		int sum4count = 0;
 	}
 
 }
