@@ -28,10 +28,6 @@ public class Starts {
 	
 	public static final long MONSTER_MAGIC = 0x03a49990l;
 	
-	//index = 0049d410
-	
-	//index = 0047dc90
-	
 	public static final long MONSTER_TRS_INDEX = 0x0001ec18;
 	
 	public static final long ITEM_TRS_INDEX = 0x00002cc4l;

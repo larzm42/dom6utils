@@ -773,9 +773,9 @@ public class MonsterStatIndexer extends AbstractStatIndexer {
 				monster.setArmor1(getBytes2(startIndex + 852) == 0 ? null : getBytes2(startIndex + 852));
 				monster.setArmor2(getBytes2(startIndex + 854) == 0 ? null : getBytes2(startIndex + 854));
 				monster.setArmor3(getBytes2(startIndex + 856) == 0 ? null : getBytes2(startIndex + 856));
-				monster.setBasecost(getBytes2(startIndex + 858));
-				monster.setRcost(getBytes2(startIndex + 860));
-				monster.setRpcost(getBytes4(startIndex + 864));
+				monster.setBasecost(getBytes2(startIndex + 862));
+				monster.setRcost(getBytes2(startIndex + 864));
+				monster.setRpcost(getBytes4(startIndex + 868));
 
 				List<AttributeValue> attributes = getAttributes(startIndex+ Starts.MONSTER_ATTRIBUTE_OFFSET);
 				for (AttributeValue attr : attributes) {

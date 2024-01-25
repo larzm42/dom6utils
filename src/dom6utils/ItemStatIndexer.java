@@ -61,13 +61,30 @@ public class ItemStatIndexer extends AbstractStatIndexer {
 			"allunitslooklikebearertoscouts", "monstermustbepresent", "banishkiller", "onlyuseablebyfliersormounted", "masterritualist", "stunattackers",
 			"eatforyouth", "startitem", "swimming", "localsun", "poisonarmor", "curserandomunits", "voidbanishchance", "voidret", "chancetobecomewerewolf", "stormimmune", "farsail", 
 			"lesserhorrorattackchance", "islance", "commaster", "comslave", "nofind", "chestwound", "feeblemind", "enlargement", "limitedenlargement", "antimagic", "soulvortex", 
-			"disbelieve", "truesight", "itemcost1", "itemost2", "falsesupplies", "bestowtomount", "extraarms", "nomount", "noinanimate", "end"};																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																				
+			"disbelieve", "truesight", "itemcost1", "itemost2", "falsesupplies", "bestowtomount", "extraarms", "nomount", "noinanimate", "nightmareaura", "undreaming", 
+			"glamourman", "nomindless", "noforgebonus", "magerestriction", "dancingweapon", "strikes", "warning", "strrequired", "beauty", "end"};																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																				
 
 
 	private static String[][] KNOWN_ITEM_ATTRS = {
 			{"9D05", "bestowtomount"},
 			{"9805", "extraarms"},
 			{"8905", "typeres"},
+			{"6304", "nightmareaura"},
+			{"4004", "undreaming"},
+			{"0E04", "glamourman"},
+			{"0E04", "glamourman"},
+			{"8D05", "nomindless"},
+			{"6904", "bers"},
+			{"2804", "damagereversal"},
+			{"8C05", "magerestriction"},
+			{"1004", "dancingweapon"},
+			{"1104", "strikes"},
+			{"1204", "dancingweapon1"},
+			{"1304", "dancingweapon2"},
+			{"1404", "dancingweapon3"},
+			{"2304", "warning"},
+			{"8605", "strrequired"},
+			{"DA00", "beauty"},
 			
 			{"C600", "fireres"},
 			{"C900", "coldres"},
@@ -114,7 +131,7 @@ public class ItemStatIndexer extends AbstractStatIndexer {
 			{"2F00", "bloodrange"},
 			{"1901", "darkvision"},
 			{"CE01", "limitedregeneration"},
-			{"BD00", "regeneration"},
+			{"2904", "regeneration"},
 			{"6E00", "waterbreathing"},
 			{"8601", "stealthb"},
 			{"6C00", "stealth"},
@@ -178,10 +195,10 @@ public class ItemStatIndexer extends AbstractStatIndexer {
 			{"CD01", "patience"},
 			{"B401", "retinue"},
 			
-			{"2401", "noforgebonus"},
-			{"2802", "crown"},
+			{"7A05", "noforgebonus"},
+			{"8F05", "crown"},
 			{"3101", "hpbonus"},
-			{"3902", "twistfate"},
+			{"5D04", "twistfate"},
 			{"3E02", "nationrebate#"},
 			{"5202", "mason"},
 			{"5402", "itemcost1"},
@@ -295,7 +312,7 @@ public class ItemStatIndexer extends AbstractStatIndexer {
 
 
 	
-	private static String values[][] = {{"bless", "luck", "", "airshield", "barkskin", "", "", "", "bers", "", "", "", "", "coldaura", "", "" },
+	private static String values[][] = {{"bless", "luck", "", "airshield", "barkskin", "", "", "", "", "", "", "", "", "coldaura", "", "" },
 										{"stoneskin", "fly", "quick", "", "", "", "", "", "", "", "antimagic", "eth", "ironskin", "commaster", "comslave", "enlargement" },
 										{"", "", "", "float", "", "", "", "", "limitedenlargement", "", "", "", "", "", "", "" },
 										{"", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "" },
