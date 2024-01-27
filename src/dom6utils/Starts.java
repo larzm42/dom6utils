@@ -49,8 +49,9 @@ public class Starts {
 	public static final long ITEM_AND_MONSTER_DESC_INDEX = 0x0049ee10l;
 	public static final long SPELL_DESC_INDEX = 0x0047f7c0l;
 
-	public static final long EVENT = 0x005f7d90l;
-	public static final long EVENT_ATTRIBUTE_OFFSET = 1400l;
+	public static final long EVENT = 0x005f7240l;
+	public static final long EVENT_REQUIREMENT_OFFSET = 1408l;
+	public static final long EVENT_EFFECT_OFFSET = 1600l;
 	public static final long EVENT_SIZE = 1920l;
 	
 	public static final long MERCENARY = 0x025be2b0l;

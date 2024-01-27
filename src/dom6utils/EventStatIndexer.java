@@ -24,7 +24,6 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
-import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -42,20 +41,15 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import dom6utils.CSVWriter.Delimiter;
 import dom6utils.CSVWriter.SSType;
 
-public class EventStatIndexer {
+public class EventStatIndexer extends AbstractStatIndexer {
 	public static String[] event_columns = {"id", "name", "rarity", "description", "requirements",  "effects", "end"};
 
 	static class Event {
 		String description;
 		int rarity;
 		int id;
-		List<Pair> requirements;
-		List<Pair> effects;
-	}
-	
-	static class Pair {
-		String name;
-		String value;
+		List<AttributeValue> requirements;
+		List<AttributeValue> effects;
 	}
 	
 //	0x6A00		This nation must be present		#req_nation	(Value is nation number)
@@ -209,28 +203,29 @@ public class EventStatIndexer {
 		{"3900", "decscale"}, 
 		{"3A00", "decscale2"}, 
 		{"3B00", "decscale3"}, 
-		{"2A00", "gold"}, 
+		{"BE00", "gold"}, 
 		{"3200", "defence"}, 
 		{"0800", "landgold"}, 
 		{"0100", "nation"}, 
 		{"5C00", "1d3units"}, 
-		{"1800", "1d6units"}, 
-		{"1900", "2d6units"}, 
+		{"A000", "1d6units"}, 
+		{"A200", "2d6units"}, 
 		{"1A00", "3d6units"}, 
-		{"1B00", "4d6units"}, 
+		{"A500", "4d6units"}, 
 		{"1C00", "5d6units"}, 
-		{"1D00", "6d6units"}, 
+		{"A800", "6d6units"}, 
 		{"1E00", "7d6units"}, 
 		{"1F00", "8d6units"}, 
 		{"2000", "9d6units"}, 
-		{"2100", "10d6units"}, 
+		{"AE00", "10d6units"}, 
 		{"2200", "11d6units"}, 
-		{"2300", "12d6units"}, 
+		{"B100", "12d6units"}, 
 		{"2400", "13d6units"}, 
 		{"2500", "14d6units"}, 
 		{"2600", "15d6units"}, 
-		{"2700", "16d6units"}, 
+		{"B700", "16d6units"}, 
 		{"2900", "magicitem"}, 
+		
 		{"0E00", "1d3vis"}, 
 		{"0F00", "1d6vis"}, 
 		{"1000", "1d6vis"}, 
@@ -239,9 +234,9 @@ public class EventStatIndexer {
 		{"1300", "4d6vis"}, 
 		//{"3500", "gemloss"}, 
 		{"0A00", "kill"}, 
-		{"1400", "com"}, 
+		{"9600", "com"}, 
 		{"7A00", "transform"},
-		{"1500", "2com"}, 
+		{"9700", "2com"}, 
 		{"5D00", "code"}, 
 		{"0C00", "unrest"}, 
 		{"4E00", "taxboost"}, 
@@ -268,8 +263,8 @@ public class EventStatIndexer {
 		{"4300", "stealthcom"}, 
 		{"3400", "revolt"}, 
 		{"2B00", "newdom"}, 
-		{"1600", "4com"}, 
-		{"1700", "5com"}, 
+		{"9800", "4com"}, 
+		{"9900", "5com"}, 
 		{"2800", "id"}, 
 		{"4500", "worldunrest"}, 
 		{"4700", "worldincscale"}, 
@@ -375,125 +370,9 @@ public class EventStatIndexer {
 	static Set<String> effectToGemSet = new HashSet<String>();
 	static Set<String> effectToScaleSet = new HashSet<String>();
 	
-	static Map<Integer, String> unitMap = new HashMap<Integer, String>();
-	static Map<Integer, String> gemMap = new HashMap<Integer, String>();
-	static Map<Integer, String> scaleMap = new HashMap<Integer, String>();
-
-	public static void requirements(List<Event> events) throws IOException {
-		FileInputStream stream = new FileInputStream("Dominions6.exe");			
-		stream.skip(Starts.EVENT);
-		stream.skip(1400l);
-		
-		int i = 0;
-		long numFound = 0;
-		byte[] c = new byte[2];
-		stream.skip(2l);
-		while ((stream.read(c, 0, 2)) != -1) {
-			String high = String.format("%02X", c[1]);
-			String low = String.format("%02X", c[0]);
-			int weapon = Integer.decode("0X" + high + low);
-			if (weapon == 0) {
-				int value = 0;
-				stream.skip(28l - numFound*2l);
-				// Values
-				for (int x = 0; x < numFound; x++) {
-					stream.read(c, 0, 2);
-					high = String.format("%02X", c[1]);
-					low = String.format("%02X", c[0]);
-					int tmp = new BigInteger(high + low, 16).intValue();
-					if (tmp <= 5000) {
-						value = Integer.decode("0X" + high + low);
-					} else {
-						value = new BigInteger("FFFF" + high + low, 16).intValue();
-					}
-					if (requirementToUnitSet.contains(events.get(i).requirements.get(x).name)) {
-						events.get(i).requirements.get(x).value = unitMap.get(value) != null ? unitMap.get(value) : Integer.toString(value);
-					} else {
-						events.get(i).requirements.get(x).value = Integer.toString(value);
-					}
-					stream.skip(6);
-				}
-				
-				stream.skip(Starts.EVENT_SIZE - 30l - numFound*8l);
-				numFound = 0;
-				i++;
-			} else {
-				Pair pair = new Pair();
-				pair.name = translateRequirements(low + high);
-				events.get(i).requirements.add(pair);
-				numFound++;
-			}				
-			if (i >= events.size()) {
-				break;
-			}
-		}
-		stream.close();
-	}
-	
-	public static void effects(List<Event> events) throws IOException {
-		FileInputStream stream = new FileInputStream("Dominions6.exe");			
-		stream.skip(Starts.EVENT);
-		stream.skip(1400l);
-
-		int i = 0;
-		long numFound = 0;
-		byte[] c = new byte[8];
-		stream.skip(128);
-		while ((stream.read(c, 0, 2)) != -1) {
-			String high = String.format("%02X", c[1]);
-			String low = String.format("%02X", c[0]);
-			int weapon = Integer.decode("0X" + high + low);
-			if (weapon == 0) {
-				stream.skip(38l - numFound*2l);
-				// Values
-				for (int x = 0; x < numFound; x++) {
-					stream.read(c, 0, 8);
-					String b7 = String.format("%02X", c[7]);
-					String b6 = String.format("%02X", c[6]);
-					String b5 = String.format("%02X", c[5]);
-					String b4 = String.format("%02X", c[4]);
-					String b3 = String.format("%02X", c[3]);
-					String b2 = String.format("%02X", c[2]);
-					String b1 = String.format("%02X", c[1]);
-					String b0 = String.format("%02X", c[0]);
-					if (events.get(i).effects.get(x).name.equals("gainaff")) {
-						long value = 0l;
-						value = new BigInteger(b7+b6+b5+b4+b3+b2+b1+b0, 16).longValue();
-						events.get(i).effects.get(x).value = Long.toString(value);
-					} else {
-						int value = 0;
-						int tmp = new BigInteger(b1 + b0, 16).intValue();
-						if (tmp < 5000) {
-							value = Integer.decode("0X" + b1 + b0);
-						} else {
-							value = new BigInteger("FFFF" + b1 + b0, 16).intValue();
-						}
-						if (effectToUnitSet.contains(events.get(i).effects.get(x).name)) {
-							events.get(i).effects.get(x).value = unitMap.get(value) != null ? unitMap.get(value) : Integer.toString(value);
-						} else if (effectToGemSet.contains(events.get(i).effects.get(x).name)) {
-							events.get(i).effects.get(x).value = gemMap.get(value) != null ? gemMap.get(value) : Integer.toString(value);
-						} else if (effectToScaleSet.contains(events.get(i).effects.get(x).name)) {
-							events.get(i).effects.get(x).value = scaleMap.get(value) != null ? scaleMap.get(value) : Integer.toString(value);
-						} else {
-							events.get(i).effects.get(x).value = Integer.toString(value);
-						}
-					}
-				}
-				stream.skip(Starts.EVENT_SIZE - 40l - numFound*8l);
-				numFound = 0;
-				i++;
-			} else {
-				Pair pair = new Pair();
-				pair.name = translateEffects(low + high);
-				events.get(i).effects.add(pair);
-				numFound++;
-			}				
-			if (i >= events.size()) {
-				break;
-			}
-		}
-		stream.close();
-	}
+	static Map<String, String> unitMap = new HashMap<String, String>();
+	static Map<String, String> gemMap = new HashMap<String, String>();
+	static Map<String, String> scaleMap = new HashMap<String, String>();
 
 	private static String translateRequirements(String value) {
 		for (String[]pair : requirementMapping) {
@@ -501,7 +380,7 @@ public class EventStatIndexer {
 				return pair[1];
 			}
 		}
-		return "0x"+value+"";
+		return value;
 	}
 	
 	private static String translateEffects(String value) {
@@ -510,7 +389,7 @@ public class EventStatIndexer {
 				return pair[1];
 			}
 		}
-		return "0x"+value+"";
+		return value;
 	}
 	
 	public static void main(String[] args) {
@@ -530,33 +409,34 @@ public class EventStatIndexer {
 			String line;
 			while ((line = bufferedReader.readLine()) != null) {
 				StringTokenizer tok = new StringTokenizer(line, "\t");
-				Integer key = Integer.parseInt(tok.nextToken());
+				String key = tok.nextToken();
 				String value = tok.nextToken();
-				if (key != 1) {
+				if (!key.equals("1")) {
 					unitMap.put(key, value);
 				}
 			}
 			fileReader.close();
 			
-			gemMap.put(0, "F");
-			gemMap.put(1, "A");
-			gemMap.put(2, "W");
-			gemMap.put(3, "E");
-			gemMap.put(4, "S");
-			gemMap.put(5, "D");
-			gemMap.put(6, "N");
-			gemMap.put(7, "B");
-			gemMap.put(50, "Random");
-			gemMap.put(51, "Elemental");
-			gemMap.put(52, "Sorcery");
-			gemMap.put(56, "All");
+			gemMap.put("0", "F");
+			gemMap.put("1", "A");
+			gemMap.put("2", "W");
+			gemMap.put("3", "E");
+			gemMap.put("4", "S");
+			gemMap.put("5", "D");
+			gemMap.put("6", "N");
+			gemMap.put("7", "G");
+			gemMap.put("8", "B");
+			gemMap.put("50", "Random");
+			gemMap.put("51", "Elemental");
+			gemMap.put("52", "Sorcery");
+			gemMap.put("56", "All");
 			
-			scaleMap.put(0, "Turmoil");
-			scaleMap.put(1, "Sloth");
-			scaleMap.put(2, "Cold");
-			scaleMap.put(3, "Death");
-			scaleMap.put(4, "Misfortune");
-			scaleMap.put(5, "Drain");
+			scaleMap.put("0", "Turmoil");
+			scaleMap.put("1", "Sloth");
+			scaleMap.put("2", "Cold");
+			scaleMap.put("3", "Death");
+			scaleMap.put("4", "Misfortune");
+			scaleMap.put("5", "Drain");
 
 	        List<Event> events = new ArrayList<Event>();
 
@@ -580,10 +460,35 @@ public class EventStatIndexer {
 				if (name.toString().equals("end")) {
 					break;
 				}
+
 				Event event = new Event();
 				event.description = name.toString();
-				event.requirements = new ArrayList<Pair>();
-				event.effects = new ArrayList<Pair>();
+				
+				int tmp = getBytes2(startIndex + 1400l);
+				if (tmp > 100) {
+					tmp = tmp - 256;
+				}
+				event.rarity = tmp;
+
+				event.requirements = getAttributes(startIndex + Starts.EVENT_REQUIREMENT_OFFSET);
+				for (AttributeValue val : event.requirements) {
+					val.attribute = translateRequirements(val.attribute);
+				}
+				event.effects = getAttributes(startIndex + Starts.EVENT_EFFECT_OFFSET);
+				for (AttributeValue val : event.effects) {
+					val.attribute = translateEffects(val.attribute);
+					if (effectToUnitSet.contains(val.attribute)) {
+						val.values.set(0, unitMap.get(val.values.get(0)) != null ? unitMap.get(val.values.get(0)) : val.values.get(0));
+					} else if (effectToGemSet.contains(val.attribute)) {
+						val.values.set(0, gemMap.get(val.values.get(0)) != null ? gemMap.get(val.values.get(0)) : val.values.get(0));
+					} else if (effectToScaleSet.contains(val.attribute)) {
+						val.values.set(0, scaleMap.get(val.values.get(0)) != null ? scaleMap.get(val.values.get(0)) : val.values.get(0));
+					//} else {
+						//events.get(i).effects.get(x).value = Integer.toString(value);
+					}
+
+				}
+				
 				events.add(event);
 
 				stream = new FileInputStream("Dominions6.exe");		
@@ -595,32 +500,6 @@ public class EventStatIndexer {
 			in.close();
 			stream.close();
 				
-			stream = new FileInputStream("Dominions6.exe");			
-			stream.skip(Starts.EVENT);
-			stream.skip(1400l);
-			
-			// rarity
-			int i = 0;
-			byte[] c = new byte[2];
-			while ((stream.read(c, 0, 2)) != -1) {
-				String high = String.format("%02X", c[1]);
-				String low = String.format("%02X", c[0]);
-				int tmp = new BigInteger(high + low, 16).intValue();
-				if (tmp > 100) {
-					tmp = new BigInteger("FFFFFF" + low, 16).intValue();
-				}
-				events.get(i).rarity = tmp;
-				stream.skip(Starts.EVENT_SIZE - 2l);
-				i++;
-				if (i >= events.size()) {
-					break;
-				}
-			}
-			stream.close();
-
-			requirements(events);
-			effects(events);
-			
 			//make sure there's a place to put csv files
 			CSVWriter.createCSVOutputDirectory();
 			
@@ -634,7 +513,7 @@ public class EventStatIndexer {
 				// Event
 				if (rowNum == 0) {
 					XSSFRow row = sheet.createRow(rowNum);
-					for (i = 0; i < event_columns.length; i++) {
+					for (int i = 0; i < event_columns.length; i++) {
 						row.getCell(i, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK).setCellValue(event_columns[i]);
 					}
 					rowNum++;
@@ -648,15 +527,15 @@ public class EventStatIndexer {
 
 				boolean first = true;
 				StringBuffer req = new StringBuffer();
-				for (Pair pair : event.requirements) {
-					req.append((first?"":"|")+pair.name + " " + pair.value);
+				for (AttributeValue pair : event.requirements) {
+					req.append((first?"":"|")+pair.attribute + " " + pair.values.get(0));
 					first = false;
 				}
 				row.getCell(4, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK).setCellValue(req.toString());
 				StringBuffer eff = new StringBuffer();
 				first=true;
-				for (Pair pair : event.effects) {
-					eff.append((first?"":"|")+pair.name + " " + pair.value);
+				for (AttributeValue pair : event.effects) {
+					eff.append((first?"":"|")+pair.attribute + " " + pair.values.get(0));
 					first = false;
 				}
 				row.getCell(5, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK).setCellValue(eff.toString());
