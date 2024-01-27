@@ -444,8 +444,8 @@ public class ItemStatIndexer extends AbstractStatIndexer {
 									item.parameters.put("bloodrange", attr.values.get(0));
 									break;
 								case ("forbidden light"): //HACK
-									item.parameters.put("F", 2);
-									item.parameters.put("S", 2);
+//									item.parameters.put("F", 2);
+//									item.parameters.put("S", 2);
 									break;
 								case("crown"): //HACK
 									item.parameters.put("type", "crown");

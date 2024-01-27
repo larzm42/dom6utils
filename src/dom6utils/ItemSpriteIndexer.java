@@ -45,7 +45,7 @@ public class ItemSpriteIndexer {
 	
 	public static void run() {
 		indexToInt.put("first", new ArrayList<String>(Arrays.asList(new String[]{"00", "01"})));
-		indexToInt.put("1h", new ArrayList<String>(Arrays.asList(new String[]{"03"})));
+		indexToInt.put("1h", new ArrayList<String>(Arrays.asList(new String[]{"03", "04"})));
 		indexToInt.put("2h", new ArrayList<String>(Arrays.asList(new String[]{"07"})));
 		indexToInt.put("bow", new ArrayList<String>(Arrays.asList(new String[]{"0B"})));
 		indexToInt.put("shield", new ArrayList<String>(Arrays.asList(new String[]{"0F"})));
