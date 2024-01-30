@@ -86,13 +86,14 @@ public class MonsterStatIndexer extends AbstractStatIndexer {
 			"hpoverflow", "indepstay", "polyimmune", "horrormark", "deathdisease", "allret", "percentpathreduction", "aciddigest", "beckon", "slaverbonus", "carcasscollector", 
 			"mindcollar", "labpromotion", "mountainrec", "indepspells", "enchrebate50", "summon1", "randomspell", "deathpower", "deathrec", "norange", "insanify", "reanimator", 
 			"defector", "nohof", "batstartsum1d3", "enchrebate10", "undying", "moralebonus", "uncurableaffliction", "autoblessed", "wintersummon1d3", "stygianguide", "almostundead", 
-			"truesight", "smartmount", "mobilearcher", "reformingflesh", "fearoftheflood", "spiritform", "chorusslave", "chorusmaster", "end"}; 
+			"truesight", "smartmount", "mobilearcher", "reformingflesh", "fearoftheflood", "spiritform", "chorusslave", "chorusmaster", "tightrein", "corpsestitcher", 
+			"reconstruction", "nofriders", "coridermnr", "holycost", "animatemnr", "lich", "glamourman", "end"}; 
 			
 		
 			
 			
 	private static String values[][] = {{"heal", "mounted", "animal", "amphibian", "wastesurvival", "undead", "coldres15", "heat", "neednoteat", "fireres15", "poisonres15", "aquatic", "flying", "trample", "immobile", "immortal" },
-										{"cold", "forestsurvival", "shockres15", "swampsurvival", "demon", "holy", "mountainsurvival", "illusion", "noheal", "ethereal", "pooramphibian", "stealthy40", "misc2", "coldblood", "inanimate", "female" },
+										{"cold", "forestsurvival", "shockres15", "swampsurvival", "demon", "holy", "mountainsurvival", "", "noheal", "ethereal", "pooramphibian", "stealthy40", "misc2", "coldblood", "inanimate", "female" },
 										{"bluntres", "slashres", "pierceres", "slow_to_recruit", "float", "stormimmune", "teleport", "snowmove", "swimming", "domimmortal", "", "", "spiritform", "", "", "" },
 										{"", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "" },
 										{"magicbeing", "", "requndeadleadership", "poormagicleader", "okmagicleader", "goodmagicleader", "expertmagicleader", "superiormagicleader", "poorundeadleader", "okundeadleader", "goodundeadleader", "expertundeadleader", "superiorundeadleader", "", "", "" },
@@ -111,6 +112,17 @@ public class MonsterStatIndexer extends AbstractStatIndexer {
 		{"5504", "chorusslave"},
 		{"5604", "chorusmaster"},
 		{"2804", "damagerev"},
+		{"3004", "tightrein"},
+		{"AA02", "templetrainer"},
+		{"6B04", "corpsestitcher"},
+		{"2D04", "reconstruction"},
+		{"FB03", "nofriders"},
+		{"FA03", "coridermnr"},
+		{"0704", "holycost"},
+		{"7204", "animatemnr"},
+		{"6C04", "lich"},
+		{"0F04", "illusion"},
+		{"0E04", "glamourman"},
 		
 		{"6C00", "stealthy"},
 		{"C900", "coldres"},
@@ -343,7 +355,6 @@ public class MonsterStatIndexer extends AbstractStatIndexer {
 		{"3301", "appetite"}, // formerly supplysize
 		{"3302", "astralfetters"},
 		{"3400", "foreignmagicboost"},
-		{"3402", "templetrainer"},
 		{"3901", "infernoret"},
 		{"3A01", "kokytosret"},
 		{"3D01", "addrandomage"}, // formerly infernalcrossbreedingmult
