@@ -222,7 +222,7 @@ public class SiteStatIndexer extends AbstractStatIndexer {
 				site.parameters.put("name", name.toString());
 				short rarity = getBytes1(startIndex + 42);
 				site.parameters.put("rarity", rarity == -1 ? "0" : rarity);
-				site.parameters.put("loc", getBytes4(startIndex + 208));
+				site.parameters.put("loc", getBytes4(startIndex + 304));
 				site.parameters.put("level", getBytes2(startIndex + 40));
 				String[] paths = {"Fire", "Air", "Water", "Earth", "Astral", "Death", "Nature", "Glamour", "Blood", "Holy"};
 				int[] spriteOffset = {1, 10, 19, 29, 41, 48, 57, 68, 82, 91};
