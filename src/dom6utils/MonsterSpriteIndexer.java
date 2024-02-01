@@ -16,6 +16,7 @@ package dom6utils;
  */
 import java.io.FileInputStream;
 import java.math.BigInteger;
+import java.nio.ByteBuffer;
 import java.nio.file.Files;
 import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
@@ -36,14 +37,15 @@ import java.util.StringTokenizer;
 import java.util.TreeMap;
 import java.util.TreeSet;
 
-public class MonsterSpriteIndexer {
-	
+
+public class MonsterSpriteIndexer extends AbstractStatIndexer {
+
 	static Map<String, List<String>> indexToInt = new HashMap<String, List<String>>();
 
 	public static void main(String[] args) {
 		run();
 	}
-	
+
 	public static void run() {
 		indexToInt.put("first", new ArrayList<String>(Arrays.asList(new String[]{"00", "01"})));
 		indexToInt.put("sea", new ArrayList<String>(Arrays.asList(new String[]{"03", "04"})));
@@ -173,7 +175,7 @@ public class MonsterSpriteIndexer {
 		empty: 7280
 		empty: 7286
 		oklara: 7292*/
-		
+
 		FileInputStream stream = null;
 		try {
 			Path monstersPath = Files.createDirectories(Paths.get("monsters", "output"));
@@ -193,7 +195,7 @@ public class MonsterSpriteIndexer {
 				String low = String.format("%02X", d[0]);
 				index1 = new BigInteger(low + high + low1 + high1, 16).intValue();
 				if (index1 == -1) break;
-				
+
 				StringBuffer buffer = new StringBuffer();
 				byte[] b = new byte[1];
 				while (stream.read(b) != -1) {
@@ -206,204 +208,112 @@ public class MonsterSpriteIndexer {
 				indexes1.put(index1, buffer.toString());
 			}
 			stream.close();
-			
+
 			indexes1.put(0, "first");
 			for (Map.Entry<Integer, String> entry : indexes1.entrySet()) {
 				System.out.println(entry.getValue() + ": " + entry.getKey());
 			}
-			
-			Map<String, List<String>> map = new HashMap<String, List<String>>();
-				stream = new FileInputStream("Dominions6.exe");
-				
-				byte[] b = new byte[32];
-				byte[] c = new byte[2];
 
-				stream.skip(Starts.MONSTER);
-				int id = 1;
-				Set<String> indexes = new HashSet<String>();
-				while (stream.read(b, 0, 32) != -1) {
-					stream.skip(4);
-					stream.read(c, 0, 2);
-					
-					StringBuffer name = new StringBuffer();
-					for (int i = 0; i < 32; i++) {
-						if (b[i] != 0) {
-							name.append(new String(new byte[] {b[i]}));
+			Map<String, List<String>> map = new HashMap<String, List<String>>();
+			stream = new FileInputStream("Dominions6.exe");
+
+			byte[] b = new byte[32];
+			byte[] c = new byte[2];
+
+			long startIndex = Starts.MONSTER;
+			stream.skip(startIndex);
+			int id = 1;
+			Set<String> indexes = new HashSet<String>();
+			while (stream.read(b, 0, 32) != -1) {
+				stream.skip(4);
+				stream.read(c, 0, 2);
+
+				StringBuffer name = new StringBuffer();
+				for (int i = 0; i < 32; i++) {
+					if (b[i] != 0) {
+						name.append(new String(new byte[] {b[i]}));
+					}
+				}
+				if (name.toString().equals("end")) {
+					break;
+				}
+				String index = String.format("%02X", c[1]);
+				String offset = String.format("%02X", c[0]);
+				indexes.add(index);
+				List<String> list = map.get(index);
+				if (list == null) {
+					list = new ArrayList<String>();
+					map.put(index, list);
+				}
+
+				String rider = null;
+				List<AttributeValue> attributes = getAttributes(startIndex+ Starts.MONSTER_ATTRIBUTE_OFFSET);
+				for (AttributeValue attr : attributes) {
+					if ("F903".equals(attr.attribute)) {
+						String value = attr.values.get(0);
+						int parseInt = Integer.parseInt(value);
+						if (parseInt < 1000) {
+							// direct index
+							rider = " rider: " + parseInt;
+						} else {
+							// mapped index
+							byte[] m = ByteBuffer.allocate(4).putInt(parseInt).array();
+
+							String riderIndex = String.format("%02X", m[2]);
+							String riderOffset = String.format("%02X", m[3]);
+							rider = " rider: "  + riderOffset + " " + riderIndex;
+
 						}
 					}
-					if (name.toString().equals("end")) {
-						break;
-					}
-					String index = String.format("%02X", c[1]);
-					String offset = String.format("%02X", c[0]);
-					indexes.add(index);
-					List<String> list = map.get(index);
-					if (list == null) {
-						list = new ArrayList<String>();
-						map.put(index, list);
-					}
-					list.add(id + ": " + name + ": " + offset + " " + index);
-					System.out.println(id + ":" + name + ": " + offset + " " + index);
-					
-					id++;
-					stream.skip(826 + 24);
 				}
-				TreeSet<String> sorted = new TreeSet<String>(new Comparator<String>() {
-					@Override
-					public int compare(String o1, String o2) {
-						return Integer.decode("0X" + o1).compareTo(Integer.decode("0X" + o2));
-					}
-				});
-				sorted.addAll(indexes);
-				int things = 0;
-				Iterator<String> iter = sorted.iterator();
-				while (iter.hasNext()) {
-					String ind = iter.next();
-					System.out.println(ind);
-					List<String> list = map.get(ind);
-					List<SortedByOffset> sortedSet = new ArrayList<SortedByOffset>();
-					for (String myList : list) {
-						sortedSet.add(new SortedByOffset(myList));
-					}
-					Collections.sort(sortedSet);
-					for (SortedByOffset thing : sortedSet) {
-						System.out.println("  " + thing.value);
-						things++;
-					}
+
+				list.add(id + ": " + name + ": " + offset + " " + index + (rider != null?rider:""));
+				System.out.println(id + ":" + name + ": " + offset + " " + index + (rider != null?rider:""));
+
+				id++;
+				stream = new FileInputStream(EXE_NAME);		
+				startIndex = startIndex + Starts.MONSTER_SIZE;
+				stream.skip(startIndex);
+			}
+			
+			TreeSet<String> sorted = new TreeSet<String>(new Comparator<String>() {
+				@Override
+				public int compare(String o1, String o2) {
+					return Integer.decode("0X" + o1).compareTo(Integer.decode("0X" + o2));
 				}
-				System.out.println("------------------------");
-				System.out.println("Indexes:" + indexes.size() + " Monsters:" + things);
-				
+			});
+			
+			sorted.addAll(indexes);
+			int things = 0;
+			Iterator<String> iter = sorted.iterator();
+			while (iter.hasNext()) {
+				String ind = iter.next();
+				System.out.println(ind);
+				List<String> list = map.get(ind);
+				List<SortedByOffset> sortedSet = new ArrayList<SortedByOffset>();
+				for (String myList : list) {
+					sortedSet.add(new SortedByOffset(myList));
+				}
+				Collections.sort(sortedSet);
+				for (SortedByOffset thing : sortedSet) {
+					System.out.println("  " + thing.value);
+					things++;
+				}
+			}
+			System.out.println("------------------------");
+			System.out.println("Indexes:" + indexes.size() + " Monsters:" + things);
+
+			Map<String, SortedSetAndOffset> indexGroups = indexGroups(indexes1, map);
 
 			for (Map.Entry<Integer, String> entry : indexes1.entrySet()) {
 				List<String> mappings = indexToInt.get(entry.getValue());
 				if (mappings != null) {
-					boolean first = true;
-					int groupNegativeOffset = 0;
-					int groupPositiveOffset = 0;
 					for (String group : mappings) {
 						indexes.remove(group);
-						List<String> list = map.get(group);
-						List<SortedByOffset> sortedSet = new ArrayList<SortedByOffset>();
-						for (String myList : list) {
-							if (myList.indexOf("smeg") != -1) continue;
-							SortedByOffset sortedByOffset = new SortedByOffset(myList);
-							if (entry.getValue().equals("first")) {
-								if (sortedByOffset.getIntValue() < 458) {
-									sortedSet.add(new SortedByOffset(myList));
-								}
-							} else if (entry.getValue().equals("gath 3")) {
-								if (sortedByOffset.getIntValue() > 460) {
-									sortedSet.add(new SortedByOffset(myList));
-								}
-							} else if (entry.getValue().equals("gods")) {
-								if ((sortedByOffset.getIDValue() < 2932 ||
-									sortedByOffset.getIDValue() > 2954) &&
-									sortedByOffset.getIDValue() != 2963 &&
-									sortedByOffset.getIDValue() != 2964) {
-									sortedSet.add(new SortedByOffset(myList));
-								}
-							} else if (entry.getValue().equals("ur 2")) {
-								if ((sortedByOffset.getIDValue() > 2932 &&
-									sortedByOffset.getIDValue() < 2954) ||
-									sortedByOffset.getIDValue() == 2963 ||
-									sortedByOffset.getIDValue() == 2964) {
-									sortedSet.add(new SortedByOffset(myList));
-								}
-							} else {
-								sortedSet.add(new SortedByOffset(myList));
-							}
-						}
-						Collections.sort(sortedSet);
-						if (first) {
-							if (sortedSet.size() == 0) {
-								System.err.println("Empty Set: " + group);
-								continue;
-							}
-							SortedByOffset sortedByOffset = sortedSet.get(0);
-							groupNegativeOffset = sortedByOffset.getIntValue();
-							groupPositiveOffset = entry.getKey();
-							first = false;
-						}
-						int tweak = 0;
-						if (entry.getValue().equals("first")) {
-							tweak = -2;
-						}
-						if (entry.getValue().equals("man 3")) {
-							tweak = 2;
-						}
-						if (entry.getValue().equals("misc")) {
-							tweak = 2;
-						}
-						if (entry.getValue().equals("patala 3")) {
-							tweak = 2;
-						}
-						if (entry.getValue().equals("hob 1")) {
-							tweak = 5;
-						}
-						if (entry.getValue().equals("ur")) {
-							tweak = -2;
-						}
-						if (entry.getValue().equals("van 2")) {
-							tweak = -2;
-						}
-						if (entry.getValue().equals("mid 3")) {
-							tweak = -2;
-						}
-						if (entry.getValue().equals("ocean 2")) {
-							tweak = 4;
-						}
-						if (entry.getValue().equals("aby 2")) {
-							tweak = 2;
-						}
-						if (entry.getValue().equals("ermor dead")) {
-							tweak = 2;
-						}
-						if (entry.getValue().equals("ulm 1")) {
-							tweak = 2;
-						}
-						if (entry.getValue().equals("ulm 2")) {
-							tweak = 2;
-						}
-						if (entry.getValue().equals("utg 3")) {
-							tweak = 6;
-						}
-						if (entry.getValue().equals("hel 1")) {
-							tweak = 10;
-						}
-						if (entry.getValue().equals("macha 2")) {
-							tweak = 2;
-						}
-						if (entry.getValue().equals("asp 2")) {
-							tweak = 4;
-						}
-						if (entry.getValue().equals("mict 2")) {
-							tweak = 2;
-						}
-//						if (entry.getValue().equals("mict 3")) {
-//							tweak = 2;
-//						}
-						if (entry.getValue().equals("pelag 2")) {
-							tweak = 4;
-						}
-						if (entry.getValue().equals("arco 3")) {
-							tweak = 2;
-						}
-//						if (entry.getValue().equals("rus 3")) {
-//							tweak = 2;
-//						}
-						if (entry.getValue().equals("hob 1")) {
-							tweak = 6;
-						}
-						if (entry.getValue().equals("Pyr MA")) {
-							tweak = 2;
-						}
-						if (entry.getValue().equals("Plant")) {
-							tweak = 8;
-						}
-						
-						for (SortedByOffset ugh : sortedSet) {
-							int val = groupPositiveOffset - groupNegativeOffset + ugh.getIntValue()+2+tweak;
+
+						SortedSetAndOffset sortedSetAndOffset = indexGroups.get(entry.getValue()+":"+group);
+						for (SortedByOffset ugh : sortedSetAndOffset.sortedSet) {
+							int val = sortedSetAndOffset.offset + ugh.getIntValue();
 							System.out.println(ugh.value + ": " + val);
 							if (val > 0) {
 								StringTokenizer tok = new StringTokenizer(ugh.value);
@@ -413,9 +323,64 @@ public class MonsterSpriteIndexer {
 								String oldFileName2 = "monster_" + String.format("%04d", ++val) + ".tga";
 								String newFileName1 = String.format("%04d", Integer.parseInt(idStr)) + "_1.tga";
 								String newFileName2 = String.format("%04d", Integer.parseInt(idStr)) + "_2.tga";
-								
+
 								System.out.println(oldFileName1 + "->" + newFileName1);
 								System.out.println(oldFileName2 + "->" + newFileName2);
+
+								String oldRiderFileName1 = null;
+								String oldRiderFileName2 = null;
+								String newRiderFileName1 = null;
+								String newRiderFileName2 = null;
+								Integer riderValue = ugh.getRiderValue();
+								if (riderValue != null) {
+									int riderVal = 0;
+									if (riderValue == 1) {
+										riderVal = val + 1;
+									} else if (riderValue < 1000) {
+										riderVal = riderValue;
+									} else {
+										if (ugh.getRiderGroup() != null && ugh.getRiderGroup().equals(group)) {
+											//riderVal = groupPositiveOffset - groupNegativeOffset + riderValue+2+tweak;
+											riderVal = sortedSetAndOffset.offset + riderValue;
+										} else {
+											// Rider in other group
+											System.out.println("Rider in other group: " + ugh.getRiderGroup());
+											SortedSetAndOffset sortedSetAndOffset2 = indexGroups.get(entry.getValue()+":"+ugh.getRiderGroup());
+											if (sortedSetAndOffset2 != null) {
+												riderVal = sortedSetAndOffset2.offset + riderValue;
+											} else {
+												String entryValue = null;
+												if (ugh.getRiderGroup().equals("B2")) {
+													entryValue="ind";
+												} else if (ugh.getRiderGroup().equals("C1")) {
+													entryValue="mount";
+												} else if (ugh.getRiderGroup().equals("6B")) {
+													entryValue="death";
+												} else if (ugh.getRiderGroup().equals("6D")) {
+													entryValue="tien 3";
+												} else if (ugh.getRiderGroup().equals("69")) {
+													entryValue="tien 2";
+												}
+												sortedSetAndOffset2 = indexGroups.get(entryValue+":"+ugh.getRiderGroup());
+												if (sortedSetAndOffset2 != null) {
+													riderVal = sortedSetAndOffset2.offset + riderValue;
+												} else {
+													System.out.println("Group not found: " + entryValue+":"+ugh.getRiderGroup());
+												}
+											}
+										}
+									}
+									if (riderVal != 0) {
+										oldRiderFileName1 = "monster_" + String.format("%04d", riderVal) + ".tga";
+										oldRiderFileName2 = "monster_" + String.format("%04d", ++riderVal) + ".tga";
+										newRiderFileName1 = String.format("%04d", Integer.parseInt(idStr)) + "_rider_1.tga";
+										newRiderFileName2 = String.format("%04d", Integer.parseInt(idStr)) + "_rider_2.tga";
+										System.out.println(oldRiderFileName1 + "->" + newRiderFileName1);
+										System.out.println(oldRiderFileName2 + "->" + newRiderFileName2);
+									} else {
+										riderValue = null;
+									}
+								}
 
 								Path old1 = Paths.get("monsters", oldFileName1);
 								Path new1 = Paths.get("monsters", "output", newFileName1);
@@ -435,6 +400,28 @@ public class MonsterSpriteIndexer {
 								} catch (Exception e) {
 									e.printStackTrace();
 								}
+
+								if (riderValue != null) {
+									Path oldRider1 = Paths.get("monsters", oldRiderFileName1);
+									Path newRider1 = Paths.get("monsters", "output", newRiderFileName1);
+									Path oldRider2 = Paths.get("monsters", oldRiderFileName2);
+									Path newRider2 = Paths.get("monsters", "output", newRiderFileName2);
+									try {
+										Files.copy(oldRider1, newRider1);
+									} catch (NoSuchFileException e) {
+										e.printStackTrace();
+									} catch (Exception e) {
+										e.printStackTrace();
+									}
+									try {
+										Files.copy(oldRider2, newRider2);
+									} catch (NoSuchFileException e) {
+										e.printStackTrace();
+									} catch (Exception e) {
+										e.printStackTrace();
+									}
+								}
+
 							} else {
 								System.err.println("FAILED");
 							}
@@ -451,6 +438,152 @@ public class MonsterSpriteIndexer {
 			e.printStackTrace();
 		}
 	}
+
+	private static Map<String, SortedSetAndOffset> indexGroups(SortedMap<Integer, String> indexes1, Map<String, List<String>> map) {
+		Map<String, SortedSetAndOffset> newMap = new HashMap<String, SortedSetAndOffset>();
+		for (Map.Entry<Integer, String> entry : indexes1.entrySet()) {
+			List<String> mappings = indexToInt.get(entry.getValue());
+			if (mappings != null) {
+				boolean first = true;
+				int groupNegativeOffset = 0;
+				int groupPositiveOffset = 0;
+				for (String group : mappings) {
+					List<String> list = map.get(group);
+					List<SortedByOffset> sortedSet = new ArrayList<SortedByOffset>();
+					for (String myList : list) {
+						if (myList.indexOf("smeg") != -1) continue;
+						SortedByOffset sortedByOffset = new SortedByOffset(myList);
+						if (entry.getValue().equals("first")) {
+							if (sortedByOffset.getIntValue() < 458 ||
+								sortedByOffset.getIDValue() == 19) {
+								sortedSet.add(new SortedByOffset(myList));
+							}
+						} else if (entry.getValue().equals("gath 3")) {
+							if (sortedByOffset.getIntValue() > 460 &&
+								sortedByOffset.getIDValue() != 19) {
+								sortedSet.add(new SortedByOffset(myList));
+							}
+						} else if (entry.getValue().equals("gods")) {
+							if ((sortedByOffset.getIDValue() < 2932 ||
+									sortedByOffset.getIDValue() > 2954) &&
+									sortedByOffset.getIDValue() != 2963 &&
+									sortedByOffset.getIDValue() != 2964) {
+								sortedSet.add(new SortedByOffset(myList));
+							}
+						} else if (entry.getValue().equals("ur 2")) {
+							if ((sortedByOffset.getIDValue() > 2932 &&
+									sortedByOffset.getIDValue() < 2954) ||
+									sortedByOffset.getIDValue() == 2963 ||
+									sortedByOffset.getIDValue() == 2964) {
+								sortedSet.add(new SortedByOffset(myList));
+							}
+						} else {
+							sortedSet.add(new SortedByOffset(myList));
+						}
+					}
+					Collections.sort(sortedSet);
+					if (first) {
+						if (sortedSet.size() == 0) {
+							System.err.println("Empty Set: " + group);
+							continue;
+						}
+						SortedByOffset sortedByOffset = sortedSet.get(0);
+						groupNegativeOffset = sortedByOffset.getIntValue();
+						groupPositiveOffset = entry.getKey();
+						first = false;
+					}
+					int tweak = 0;
+					if (entry.getValue().equals("first")) {
+						tweak = -2;
+					}
+					if (entry.getValue().equals("man 3")) {
+						tweak = 2;
+					}
+					if (entry.getValue().equals("misc")) {
+						tweak = 2;
+					}
+					if (entry.getValue().equals("patala 3")) {
+						tweak = 2;
+					}
+					if (entry.getValue().equals("hob 1")) {
+						tweak = 5;
+					}
+					if (entry.getValue().equals("ur")) {
+						tweak = -2;
+					}
+					if (entry.getValue().equals("van 2")) {
+						tweak = -2;
+					}
+					if (entry.getValue().equals("mid 3")) {
+						tweak = -2;
+					}
+					if (entry.getValue().equals("ocean 2")) {
+						tweak = 4;
+					}
+					if (entry.getValue().equals("aby 2")) {
+						tweak = 2;
+					}
+					if (entry.getValue().equals("ermor dead")) {
+						tweak = 2;
+					}
+					if (entry.getValue().equals("ulm 1")) {
+						tweak = 2;
+					}
+					if (entry.getValue().equals("ulm 2")) {
+						tweak = 2;
+					}
+					if (entry.getValue().equals("utg 3")) {
+						tweak = 6;
+					}
+					if (entry.getValue().equals("hel 1")) {
+						tweak = 10;
+					}
+					if (entry.getValue().equals("macha 2")) {
+						tweak = 2;
+					}
+					if (entry.getValue().equals("asp 2")) {
+						tweak = 4;
+					}
+					if (entry.getValue().equals("mict 2")) {
+						tweak = 2;
+					}
+					//					if (entry.getValue().equals("mict 3")) {
+					//						tweak = 2;
+					//					}
+					if (entry.getValue().equals("pelag 2")) {
+						tweak = 4;
+					}
+					if (entry.getValue().equals("arco 3")) {
+						tweak = 2;
+					}
+					//					if (entry.getValue().equals("rus 3")) {
+					//						tweak = 2;
+					//					}
+					if (entry.getValue().equals("hob 1")) {
+						tweak = 6;
+					}
+					if (entry.getValue().equals("Pyr MA")) {
+						tweak = 2;
+					}
+					if (entry.getValue().equals("Plant")) {
+						tweak = 8;
+					}
+
+					SortedSetAndOffset sortedSetAndOffset = new SortedSetAndOffset();
+					sortedSetAndOffset.offset = groupPositiveOffset - groupNegativeOffset + 2 + tweak;
+					sortedSetAndOffset.sortedSet = sortedSet;
+					System.out.println("Group: " + entry.getValue()+":"+group + ", offset: " + sortedSetAndOffset.offset);
+					newMap.put(entry.getValue()+":"+group, sortedSetAndOffset);
+				}
+			}
+		}
+		return newMap;
+	}
+}
+
+class SortedSetAndOffset {
+	List<SortedByOffset> sortedSet;
+	int offset;
 }
 
 class SortedByOffset implements Comparable<SortedByOffset> {
@@ -462,9 +595,51 @@ class SortedByOffset implements Comparable<SortedByOffset> {
 		Stack<String> stack = new Stack<String>();
 		StringTokenizer tok = new StringTokenizer(value);
 		while (tok.hasMoreTokens()) {
-			stack.push(tok.nextToken());
+			String nextToken = tok.nextToken();
+			if (nextToken.equals("rider:")) break;
+			stack.push(nextToken);
 		}
 		return Integer.decode("0X" + stack.pop() + stack.pop());
+	}
+	public Integer getRiderValue() {
+		Stack<String> stack = new Stack<String>();
+		StringTokenizer tok = new StringTokenizer(value);
+		boolean hasRider = false;
+		while (tok.hasMoreTokens()) {
+			String nextToken = tok.nextToken();
+			if (nextToken.equals("rider:")) {
+				hasRider = true;
+			} else if (hasRider) {
+				stack.push(nextToken);
+			}
+		}
+		if (hasRider) {
+			if (stack.size() == 1) {
+				return Integer.parseInt(stack.pop());
+			} else {
+				return Integer.decode("0X" + stack.pop() + stack.pop());
+			}
+		}
+		return null;
+	}
+	public String getRiderGroup() {
+		Stack<String> stack = new Stack<String>();
+		StringTokenizer tok = new StringTokenizer(value);
+		boolean hasRider = false;
+		while (tok.hasMoreTokens()) {
+			String nextToken = tok.nextToken();
+			if (nextToken.equals("rider:")) {
+				hasRider = true;
+			} else if (hasRider) {
+				stack.push(nextToken);
+			}
+		}
+		if (hasRider) {
+			if (stack.size() == 2) {
+				return stack.pop();
+			}
+		}
+		return null;
 	}
 	public Integer getIDValue() {
 		StringTokenizer tok = new StringTokenizer(value, ":");
@@ -497,6 +672,6 @@ class SortedByOffset implements Comparable<SortedByOffset> {
 			return false;
 		return true;
 	}
-	
+
 }
 

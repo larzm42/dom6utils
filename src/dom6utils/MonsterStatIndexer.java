@@ -91,7 +91,7 @@ public class MonsterStatIndexer extends AbstractStatIndexer {
 			"moreheat",	"moreluck", "moremagic", "nofmounts", "divinebeing", "falsedamagerecovery", "uwpathboost", "nofalldmg", "randomitems", "fireempower", 
 			"airempower", "waterempower", "earthempower", "popspy", "capitalhome", "deathslimeexpl", "deathpoisonexpl", "deathshockexpl", "drawsize", "clumsy", "petrificationimmune", 
 			"regainmount", "nobarding", "scarsouls", "spikebarbs", "pretenderstartsite", "mountiscom", "nothrowoff", "offscriptresearch", "bird", "decayres", 
-			"end"}; 
+			"riderspr", "end"}; 
 			
 			
 	private static String values[][] = {{"heal", "mounted", "animal", "amphibian", "wastesurvival", "undead", "coldres15", "heat", "neednoteat", "fireres15", "poisonres15", "aquatic", "flying", "trample", "immobile", "immortal" },
@@ -162,6 +162,7 @@ public class MonsterStatIndexer extends AbstractStatIndexer {
 		{"8401", "offscriptresearch"},
 		{"B302", "bird"},
 		{"7304", "decayres"},
+		{"F903", "riderspr"},
 		
 //		3204 - Looks like it causes undisciplined unless 3104 present on the commander
 //		3104 - See 3204
