@@ -87,9 +87,11 @@ public class MonsterStatIndexer extends AbstractStatIndexer {
 			"mindcollar", "labpromotion", "mountainrec", "indepspells", "enchrebate50", "summon1", "randomspell", "deathpower", "deathrec", "norange", "insanify", "reanimator", 
 			"defector", "nohof", "batstartsum1d3", "enchrebate10", "undying", "moralebonus", "uncurableaffliction", "autoblessed", "wintersummon1d3", "stygianguide", "almostundead", 
 			"truesight", "smartmount", "mobilearcher", "reformingflesh", "fearoftheflood", "spiritform", "chorusslave", "chorusmaster", "tightrein", "corpsestitcher", 
-			"reconstruction", "nofriders", "coridermnr", "holycost", "animatemnr", "lich", "glamourman", "end"}; 
-			
-		
+			"reconstruction", "nofriders", "coridermnr", "holycost", "animatemnr", "lich", "glamourman", "erastartageincrease", "moreorder", "moregrowth", "moreprod",
+			"moreheat",	"moreluck", "moremagic", "nofmounts", "divinebeing", "falsedamagerecovery", "uwpathboost", "nofalldmg", "randomitems", "fireempower", 
+			"airempower", "waterempower", "earthempower", "popspy", "capitalhome", "deathslimeexpl", "deathpoisonexpl", "deathshockexpl", "drawsize", "clumsy", "petrificationimmune", 
+			"regainmount", "nobarding", "scarsouls", "spikebarbs", "pretenderstartsite", "mountiscom", "nothrowoff", "offscriptresearch", "bird", "decayres", 
+			"end"}; 
 			
 			
 	private static String values[][] = {{"heal", "mounted", "animal", "amphibian", "wastesurvival", "undead", "coldres15", "heat", "neednoteat", "fireres15", "poisonres15", "aquatic", "flying", "trample", "immobile", "immortal" },
@@ -123,6 +125,49 @@ public class MonsterStatIndexer extends AbstractStatIndexer {
 		{"6C04", "lich"},
 		{"0F04", "illusion"},
 		{"0E04", "glamourman"},
+		
+		{"A102", "erastartageincrease"},
+		{"ED03", "moreorder"},
+		{"EE03", "moreprod"},
+		{"EF03", "moreheat"},
+		{"F003", "moregrowth"},
+		{"F103", "moreluck"},
+		{"F203", "moremagic"},
+		{"F803", "nofmounts"},
+		{"6A04", "divinebeing"},
+		{"6004", "falsedamagerecovery"},
+		{"3D00", "uwpathboost"},
+		{"3D04", "nofalldmg"},
+		{"1E04", "randomitems"},
+		{"3804", "fireempower"},
+		{"3904", "airempower"},
+		{"3A04", "waterempower"},
+		{"3B04", "earthempower"},
+		{"D700", "popspy"},
+		{"3F01", "capitalhome"},
+		{"5904", "deathslimeexpl"},
+		{"3604", "deathpoisonexpl"},
+		{"5804", "deathshockexpl"},
+		{"7301", "drawsize"},
+		{"F503", "clumsy"},
+		{"8A00", "petrificationimmune"},
+		{"0104", "regainmount"},
+		{"6204", "nobarding"},
+		{"4304", "scarsouls"},
+		{"BD00", "spikebarbs"},
+		{"1B04", "pretenderstartsite"},
+		{"FF03", "mountiscom"},
+		{"6101", "incprovdef"},
+		{"6104", "nothrowoff"},
+		{"8401", "offscriptresearch"},
+		{"B302", "bird"},
+		{"7304", "decayres"},
+		
+//		3204 - Looks like it causes undisciplined unless 3104 present on the commander
+//		3104 - See 3204
+//		9702 - when this unit is created, put an effect of id into its slots with a value of 2. Grey ones use this to get two missing eyes
+//		7802 - percentage chance for movement when owned by nation id 4, presumably that's the new "roaming" independent faction
+//		4704 - seems to force a particular assassination map
 		
 		{"6C00", "stealthy"},
 		{"C900", "coldres"},
@@ -340,7 +385,7 @@ public class MonsterStatIndexer extends AbstractStatIndexer {
 		{"1800", "sorceryrange"},
 		{"1E01", "older"}, // formerly startagemodifier
 		{"2601", "powerofdeath"},
-		{"2701", "disbelieve"},
+		{"2801", "disbelieve"},
 		{"2800", "firerange"},
 		{"2C00", "astralrange"},
 		{"2C01", "landreinvigoration"},
@@ -362,7 +407,7 @@ public class MonsterStatIndexer extends AbstractStatIndexer {
 		{"4502", "combatcaster"},
 		{"4902", "homeshape"},
 		{"4A01", "speciallook"},
-		{"4B01", "aisinglerec"},
+		{"4C01", "aisinglerec"},
 		{"4C02", "nowish"},
 		{"5201", "bugreform"}, // formerly swarmbody
 		{"5202", "mason"},
@@ -423,14 +468,14 @@ public class MonsterStatIndexer extends AbstractStatIndexer {
 		{"F900", "clockworklord"},
 		{"8802", "commaster"},
 		{"8402", "minsizeleader"},
-		{"8702", "comslave"}, // formerly autocomslave
+		{"5104", "comslave"}, // formerly autocomslave
 		{"8102", "skirmisher"},
 		{"B102", "ironvul"},
 		{"AE02", "heathensummon"},
 		{"B002", "unseen"},
 		{"3602", "startitem"},
 		{"8202", "slaver"},
-		{"9300", "reformtime"}, // formerly immortaltimer
+		{"9600", "reformtime"}, // formerly immortaltimer
 		{"9500", "immortalrespawn"},
 		{"9302", "wolf"},
 		{"E101", "dungeon"},
@@ -483,7 +528,7 @@ public class MonsterStatIndexer extends AbstractStatIndexer {
 		{"8501", "randomspell"},
 		{"E401", "deathpower"},
 		{"E501", "deathrec"},
-		{"7A02", "norange"},
+		{"4204", "norange"},
 		{"3B01", "insanify"},
 		{"D201", "reanimator"},
 		{"D301", "defector"},
