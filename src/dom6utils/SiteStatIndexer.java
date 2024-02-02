@@ -46,7 +46,7 @@ public class SiteStatIndexer extends AbstractStatIndexer {
 			"provdef1", "provdef2", "def", "F2", "A2", "W2", "E2", "S2", "D2", "N2", "B2", "awe", "reinvigoration", "airshield", "provdefcom", 
 			"domconflict", "sprite", "nationalrecruits", "natmon","natcom", "throneclustering","wilddefenders", "domconflict", "rituallevelmodifier",
 			"callgodbonus", "magicresistancebonus", "bringgold", "scorch", "evil", "scryrange", "addtolimitedrecruitment", "ageratereduction", "dragonlord", "corpselord", "ivylord", "maximizeorder",
-			"pdconscript", "mr", "bringres", "provinc", "recpoints", "recpointpercent", "recpointpercentcmd", "agingpercent", "unaging", "end"};																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																									
+			"pdconscript", "mr", "bringres", "provinc", "recpoints", "recpointpercent", "recpointpercentcmd", "agingpercent", "unaging", "popgrowth", "end"};																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																									
 
 	private static String[][] KNOWN_SITE_ATTRS = {
 			{"2602", "summon1"},
@@ -69,6 +69,7 @@ public class SiteStatIndexer extends AbstractStatIndexer {
 			{"C802", "recpointpercentcmd"},
 			{"C902", "agingpercent"},
 			{"FC03", "unaging"},
+			{"1B00", "popgrowth"},
 			
 			{"0100", "F"},
 			{"0200", "A"},

@@ -41,8 +41,8 @@ public class Dom6Utils {
 		SpellDescDumper.run();
 		
 		// Events
-//		System.out.println("Beginning event stats"); 
-//		EventStatIndexer.run();
+		System.out.println("Beginning event stats"); 
+		EventStatIndexer.run();
 		
 		// Sprites
 		System.out.println("Beginning item sprites"); 
