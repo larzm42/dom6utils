@@ -165,6 +165,11 @@ public class NationStatIndexer extends AbstractStatIndexer {
 							unitMap.put(unitType.UNPRETENDER, new ArrayList<Troops>());
 						}
 						unitMap.get(unitType.UNPRETENDER).add(new Troops(rowNumber-1, Math.abs(attrib)));
+						// HACK If unpretender includes Titan of Crossroads, include other forms as well
+						if (Math.abs(attrib) == 3205) {
+							unitMap.get(unitType.UNPRETENDER).add(new Troops(rowNumber-1, 3206));
+							unitMap.get(unitType.UNPRETENDER).add(new Troops(rowNumber-1, 3207));							
+						}
 					} else {
 						if (unitMap.get(unitType.PRETENDER) == null) {
 							unitMap.put(unitType.PRETENDER, new ArrayList<Troops>());
