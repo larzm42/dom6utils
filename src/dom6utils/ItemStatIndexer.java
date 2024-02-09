@@ -43,7 +43,7 @@ public class ItemStatIndexer extends AbstractStatIndexer {
 			"stealthb", "forest", "mount", "waste", "swamp", "fly", "float", "sailingshipsize", "sailingmaxunitsize", "waterbreathing", "giftofwater", "airbr", 
 			"flytr", "quick", "eth", "trample", "bless", "luck", "foolsluck", "barkskin", "stoneskin", "ironskin", "curse", "disease", "cursed", "taint", "ldr-n", "ldr-u", "ldr-m", "inspirational", 
 			"fear", "awe", "animalawe", "exp", "chill", "heat", "gold", "F", "A", "W", "E", "S", "D", "N", "G", "B", "H", "firerange", "airrange", 
-			"waterrange", "earthrange", "astralrange", "deathrange", "naturerange", "bloodrange", "tmpfiregems", "tmpairgems", "tmpwatergems", "tmpearthgems", 
+			"waterrange", "earthrange", "astralrange", "deathrange", "naturerange", "glamourrange", "bloodrange", "tmpfiregems", "tmpairgems", "tmpwatergems", "tmpearthgems", 
 			"tmpastralgems", "tmpdeathgems", "tmpnaturegems", "tmpglamourgems", "gf", "ga", "gw", "ge", "gs", "gd", "gn", "gg", "gb", "berserk", "bers", "fireshield", 
 			"banefireshield", "iceprot", "bloodvengeance", "pillagebonus", "patrolbonus", "castledef", "supplybonus", "researchbonus", 
 			"heretic", "douse", "void", "diseasecloud", "poisoncloud", "reaper", "crossbreeder", "ivylord", "spelleffect", "startbattlespell", "autocombatspell", 
@@ -127,7 +127,8 @@ public class ItemStatIndexer extends AbstractStatIndexer {
 			{"2C00", "astralrange"},
 			{"2D00", "deathrange"},
 			{"2E00", "naturerange"},
-			{"2F00", "bloodrange"},
+			{"2F00", "glamourrange"},
+			{"3000", "bloodrange"},
 			{"1901", "darkvision"},
 			{"CE01", "limitedregeneration"},
 			{"2904", "regeneration"},
@@ -431,7 +432,7 @@ public class ItemStatIndexer extends AbstractStatIndexer {
 									item.parameters.put("astralrange", attr.values.get(0));
 									item.parameters.put("deathrange", attr.values.get(0));
 									item.parameters.put("naturerange", attr.values.get(0));
-									item.parameters.put("bloodrange", attr.values.get(0));
+									item.parameters.put("glamourrange", attr.values.get(0));
 									break;
 								case ("all range"):
 									item.parameters.put("firerange", attr.values.get(0));
@@ -441,6 +442,7 @@ public class ItemStatIndexer extends AbstractStatIndexer {
 									item.parameters.put("astralrange", attr.values.get(0));
 									item.parameters.put("deathrange", attr.values.get(0));
 									item.parameters.put("naturerange", attr.values.get(0));
+									item.parameters.put("glamourrange", attr.values.get(0));
 									item.parameters.put("bloodrange", attr.values.get(0));
 									break;
 								case ("forbidden light"): //HACK
