@@ -60,9 +60,10 @@ public class ItemStatIndexer extends AbstractStatIndexer {
 			"maxsizetoequip", "minstrtoequip", "minhandstoequip", "deathgemonkill", "deathexplosion", "chanceofattackbyknights", "singleuse", "domspreader",
 			"allunitslooklikebearertoscouts", "monstermustbepresent", "banishkiller", "onlyuseablebyfliersormounted", "masterritualist", "stunattackers",
 			"eatforyouth", "startitem", "swimming", "localsun", "poisonarmor", "curserandomunits", "voidbanishchance", "voidret", "chancetobecomewerewolf", "stormimmune", "farsail", 
-			"lesserhorrorattackchance", "islance", "commaster", "comslave", "nofind", "chestwound", "feeblemind", "enlargement", "limitedenlargement", "antimagic", "soulvortex", 
+			"lesserhorrorattackchance", "islance", "proudsteed", "comslave", "nofind", "chestwound", "feeblemind", "enlargement", "limitedenlargement", "antimagic", "soulvortex", 
 			"disbelieve", "truesight", "itemcost1", "itemost2", "falsesupplies", "bestowtomount", "extraarms", "nomount", "noinanimate", "nightmareaura", "undreaming", 
-			"glamourman", "nomindless", "noforgebonus", "magerestriction", "dancingweapon", "strikes", "warning", "strrequired", "beauty", "end"};																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																				
+			"glamourman", "nomindless", "noforgebonus", "magerestriction", "dancingweapon", "strikes", "warning", "strrequired", "beauty", "scalewalls", 
+			"nononsleeper", "reconst", "end"};																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																				
 
 
 	private static String[][] KNOWN_ITEM_ATTRS = {
@@ -84,6 +85,9 @@ public class ItemStatIndexer extends AbstractStatIndexer {
 			{"2304", "warning"},
 			{"8605", "strrequired"},
 			{"DA00", "beauty"},
+			{"E301", "scalewalls"},
+			{"8E05", "nononsleeper"},
+			{"2D04", "reconst"},
 			
 			{"C600", "fireres"},
 			{"C900", "coldres"},
@@ -314,7 +318,7 @@ public class ItemStatIndexer extends AbstractStatIndexer {
 
 	
 	private static String values[][] = {{"bless", "luck", "", "airshield", "barkskin", "", "", "", "", "", "", "", "", "coldaura", "", "" },
-										{"stoneskin", "fly", "quick", "", "", "", "", "", "", "", "antimagic", "eth", "ironskin", "commaster", "comslave", "enlargement" },
+										{"stoneskin", "fly", "quick", "", "", "", "", "", "", "", "antimagic", "eth", "ironskin", "proudsteed", "comslave", "enlargement" },
 										{"", "", "", "float", "", "", "", "", "limitedenlargement", "", "", "", "", "", "", "" },
 										{"", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "" },
 										{"", "invulnerable", "", "", "", "", "trample", "", "", "nofind", "", "soulvortex", "", "", "", "fireshield" },

@@ -59,8 +59,8 @@ public class MonsterStatIndexer extends AbstractStatIndexer {
 			"gem", "gemprod", "chaosrec", "pillagebonus", "patrolbonus", "castledef", "siegebonus", "incprovdef", "supplybonus", "incunrest", "popkill", 
 			"researchbonus", "drainimmune", "inspiringres", "douse", "adeptsacr", "crossbreeder", "makepearls", "pathboost", "allrange", "voidsum", 
 			"heretic", "elegist", "shapechange", "firstshape", "secondshape", "secondtmpshape", "landshape", "watershape", "forestshape", "plainshape", "xpshape",
-			"unique", "fixedname", "special", "nametype", "summon", "n_summon", "autosum", "n_autosum", "batstartsum1", 
-			"batstartsum2", "domsummon", "domsummon20", "raredomsummon", "bloodvengeance", "bringeroffortune", "realm1", "realm2", "realm3", "batstartsum3", "batstartsum4", 
+			"unique", "fixedname", "special", "nametype", "summon", "n_summon", "batstartsum1", 
+			"batstartsum2", "domsummon", "domsummon2", "domsummon20", "raredomsummon", "bloodvengeance", "bringeroffortune", "realm1", "realm2", "realm3", "batstartsum3", "batstartsum4", 
 			"batstartsum5", "batstartsum1d6", "batstartsum2d6", "batstartsum3d6", "batstartsum4d6", "batstartsum5d6", "batstartsum6d6", "turmoilsummon", 
 			"coldsummon", "scalewalls", "deathfire", "uwregen", "shrinkhp", "growhp", "transformation", "startingaff", 
 			"fixedresearch", "divineins", "lamialord", "preanimator", "dreanimator", "mummify", "onebattlespell", "fireattuned", "airattuned", 
@@ -91,7 +91,7 @@ public class MonsterStatIndexer extends AbstractStatIndexer {
 			"moreheat",	"moreluck", "moremagic", "nofmounts", "divinebeing", "falsedamagerecovery", "uwpathboost", "nofalldmg", "randomitems", "fireempower", 
 			"airempower", "waterempower", "earthempower", "popspy", "capitalhome", "deathslimeexpl", "deathpoisonexpl", "deathshockexpl", "drawsize", "clumsy", "petrificationimmune", 
 			"regainmount", "nobarding", "scarsouls", "spikebarbs", "pretenderstartsite", "mountiscom", "nothrowoff", "offscriptresearch", "bird", "decayres", 
-			"unmountedspr", "end"}; 
+			"unmountedspr", "cubmother", "exhaustion", "end"}; 
 			
 			
 	private static String values[][] = {{"heal", "mounted", "animal", "amphibian", "wastesurvival", "undead", "coldres15", "heat", "neednoteat", "fireres15", "poisonres15", "aquatic", "flying", "trample", "immobile", "immortal" },
@@ -125,6 +125,9 @@ public class MonsterStatIndexer extends AbstractStatIndexer {
 		{"6C04", "lich"},
 		{"0F04", "illusion"},
 		{"0E04", "glamourman"},
+		{"3104", "cubmother"},
+		{"7F04", "exhaustion"},
+		
 		
 		{"A102", "erastartageincrease"},
 		{"ED03", "moreorder"},
@@ -277,8 +280,8 @@ public class MonsterStatIndexer extends AbstractStatIndexer {
 		{"A101", "raredomsummon"},
 		{"DB00", "domsummon20"},
 		{"F100", "domsummon"},
-		{"6B00", "autosum"},
-		{"8F00", "autosum"},
+		{"6B00", "domsummon2"},
+		//{"8F00", "autosum"},
 		{"AD00", "turmoilsummon"},
 		{"9200", "coldsummon"},
 		{"B800", "heretic"},
@@ -356,7 +359,7 @@ public class MonsterStatIndexer extends AbstractStatIndexer {
 		{"EA03", "enchrebate50"}, // formerly 0x210, or 1002
 		{"7C00", "leper"},
 		{"9C01", "slimer"},
-		{"9201", "mindslime"},
+		{"9301", "mindslime"},
 		{"9701", "resources"},
 		{"E000", "corrupt"},
 		{"6800", "petrify"},
@@ -439,7 +442,6 @@ public class MonsterStatIndexer extends AbstractStatIndexer {
 		{"7E02", "stunimmunity"},
 		{"8000", "entangle"}, // formerly vineshield
 		{"8400", "alchemy"},
-		//{"8B00", "domsummon2"},
 		{"9601", "woundfend"},
 		{"9901", "singlebattle"}, // formerly leavespostbattleifwoundedorhaskilled
 		{"9B01", "elegist"},
