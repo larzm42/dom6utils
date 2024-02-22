@@ -73,7 +73,7 @@ public class MonsterStatIndexer extends AbstractStatIndexer {
 			"dragonlord", "curseattacker", "uwheat", "slothresearch", "horrordeserter", "mindvessel", "elementrange", "sorceryrange", "older",
 			"disbelieve", "firerange", "astralrange", "landreinvigoration", "naturerange", "beartattoo", "horsetattoo", "reincarnation", "wolftattoo", "boartattoo",
 			"sleepaura", "snaketattoo", "appetite", "astralfetters", "foreignmagicboost", "templetrainer", "infernoret", "kokytosret", "addrandomage", "unsurr",
-			"combatcaster", "homeshape", "speciallook", "aisinglerec", "nowish", "bugreform", "mason", "onisummon", "sunawe", "spiritsight", "defenceorganiser",
+			"combatcaster", "homeshape", "speciallook", "aisinglerec", "nowish", "bugreform", "mason", "onisummon", "sunawe", "spiritsight", "ownblood",
 			"invisible", "startaff", "ivylord", "spellsinger", "magicstudy", "triplegod", "triplegodmag", "unify", "triple3mon",
 			"yearturn", "fortkill", "thronekill", "digest", "indepmove", "unteleportable", "reanimpriest", "stunimmunity",
 			"entangle", "alchemy", "woundfend", "singlebattle", "falsearmy",
@@ -91,11 +91,11 @@ public class MonsterStatIndexer extends AbstractStatIndexer {
 			"moreheat",	"moreluck", "moremagic", "nofmounts", "divinebeing", "falsedamagerecovery", "uwpathboost", "nofalldmg", "randomitems", "fireempower", 
 			"airempower", "waterempower", "earthempower", "popspy", "capitalhome", "deathslimeexpl", "deathpoisonexpl", "deathshockexpl", "drawsize", "clumsy", "petrificationimmune", 
 			"regainmount", "nobarding", "scarsouls", "spikebarbs", "pretenderstartsite", "mountiscom", "nothrowoff", "offscriptresearch", "bird", "decayres", 
-			"unmountedspr", "cubmother", "exhaustion", "end"}; 
+			"unmountedspr", "cubmother", "exhaustion", "glamour", "end"}; 
 			
 			
 	private static String values[][] = {{"heal", "mounted", "animal", "amphibian", "wastesurvival", "undead", "coldres15", "heat", "neednoteat", "fireres15", "poisonres15", "aquatic", "flying", "trample", "immobile", "immortal" },
-										{"cold", "forestsurvival", "shockres15", "swampsurvival", "demon", "holy", "mountainsurvival", "", "noheal", "ethereal", "pooramphibian", "stealthy40", "misc2", "coldblood", "inanimate", "female" },
+										{"cold", "forestsurvival", "shockres15", "swampsurvival", "demon", "holy", "mountainsurvival", "glamour", "noheal", "ethereal", "pooramphibian", "stealthy40", "misc2", "coldblood", "inanimate", "female" },
 										{"bluntres", "slashres", "pierceres", "slow_to_recruit", "float", "stormimmune", "teleport", "snowmove", "swimming", "domimmortal", "", "", "spiritform", "", "", "" },
 										{"", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "" },
 										{"magicbeing", "", "requndeadleadership", "poormagicleader", "okmagicleader", "goodmagicleader", "expertmagicleader", "superiormagicleader", "poorundeadleader", "okundeadleader", "goodundeadleader", "expertundeadleader", "superiorundeadleader", "", "", "" },
@@ -419,7 +419,7 @@ public class MonsterStatIndexer extends AbstractStatIndexer {
 		{"5602", "onisummon"}, // formerly onisummoner
 		{"5D02", "sunawe"},
 		{"5F02", "spiritsight"},
-		{"6001", "defenceorganiser"},
+		{"6001", "ownblood"},
 		{"6002", "invisible"}, // formerly invisibility
 		{"6102", "startaff"}, // formerly startaffliction
 		{"6500", "ivylord"},

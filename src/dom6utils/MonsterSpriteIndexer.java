@@ -130,7 +130,7 @@ public class MonsterSpriteIndexer extends AbstractStatIndexer {
 		indexToInt.put("pelag 1", new ArrayList<String>(Arrays.asList(new String[]{"4C"})));
 		indexToInt.put("pelag 2", new ArrayList<String>(Arrays.asList(new String[]{"4F", "50"})));
 		indexToInt.put("fire", new ArrayList<String>(Arrays.asList(new String[]{"57"})));
-		indexToInt.put("earth", new ArrayList<String>(Arrays.asList(new String[]{"5B"})));
+		indexToInt.put("earth", new ArrayList<String>(Arrays.asList(new String[]{"5B", "5C"})));
 		indexToInt.put("water", new ArrayList<String>(Arrays.asList(new String[]{"5F"})));
 		indexToInt.put("air", new ArrayList<String>(Arrays.asList(new String[]{"63"})));
 		indexToInt.put("nature", new ArrayList<String>(Arrays.asList(new String[]{"67"})));
@@ -139,6 +139,8 @@ public class MonsterSpriteIndexer extends AbstractStatIndexer {
 		indexToInt.put("blood", new ArrayList<String>(Arrays.asList(new String[]{"73"})));
 		indexToInt.put("misc", new ArrayList<String>(Arrays.asList(new String[]{"77"})));
 		indexToInt.put("hob 1", new ArrayList<String>(Arrays.asList(new String[]{"7E"})));
+		indexToInt.put("hob 2", new ArrayList<String>(Arrays.asList(new String[]{"7F"})));
+		indexToInt.put("hob 3", new ArrayList<String>(Arrays.asList(new String[]{"83"})));
 		indexToInt.put("rag 3", new ArrayList<String>(Arrays.asList(new String[]{"86", "87"})));
 		indexToInt.put("naz", new ArrayList<String>(Arrays.asList(new String[]{"8A"})));
 		indexToInt.put("xib 1", new ArrayList<String>(Arrays.asList(new String[]{"8E"})));
@@ -455,12 +457,24 @@ public class MonsterSpriteIndexer extends AbstractStatIndexer {
 						SortedByOffset sortedByOffset = new SortedByOffset(myList);
 						if (entry.getValue().equals("first")) {
 							if (sortedByOffset.getIntValue() < 458 ||
-								sortedByOffset.getIDValue() == 19) {
+								sortedByOffset.getIDValue() == 19 ||
+								sortedByOffset.getIDValue() == 3821 ||
+								sortedByOffset.getIDValue() == 3822 ||
+								sortedByOffset.getIDValue() == 3823 ||
+								sortedByOffset.getIDValue() == 3832 ||
+								sortedByOffset.getIDValue() == 3893
+								) {
 								sortedSet.add(new SortedByOffset(myList));
 							}
 						} else if (entry.getValue().equals("gath 3")) {
 							if (sortedByOffset.getIntValue() > 460 &&
-								sortedByOffset.getIDValue() != 19) {
+								sortedByOffset.getIDValue() != 19 &&
+								sortedByOffset.getIDValue() != 3821 &&
+								sortedByOffset.getIDValue() != 3822 &&
+								sortedByOffset.getIDValue() != 3823 &&
+								sortedByOffset.getIDValue() != 3832 &&
+								sortedByOffset.getIDValue() != 3893
+								) {
 								sortedSet.add(new SortedByOffset(myList));
 							}
 						} else if (entry.getValue().equals("gods")) {
@@ -561,6 +575,9 @@ public class MonsterSpriteIndexer extends AbstractStatIndexer {
 					//					}
 					if (entry.getValue().equals("hob 1")) {
 						tweak = 6;
+					}
+					if (entry.getValue().equals("hob 3")) {
+						tweak = 72;
 					}
 					if (entry.getValue().equals("Pyr MA")) {
 						tweak = 2;
