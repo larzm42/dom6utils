@@ -187,7 +187,7 @@ public class ItemSpriteIndexer {
 							tweak = 3;
 						}
 						if (entry.getValue().equals("armor")) {
-							tweak = 50;
+							tweak = 4;
 						}
 						if (entry.getValue().equals("prost")) {
 							tweak = 1;
