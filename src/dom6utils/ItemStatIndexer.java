@@ -61,9 +61,9 @@ public class ItemStatIndexer extends AbstractStatIndexer {
 			"allunitslooklikebearertoscouts", "monstermustbepresent", "banishkiller", "onlyuseablebyfliersormounted", "masterritualist", "stunattackers",
 			"eatforyouth", "startitem", "swimming", "localsun", "poisonarmor", "curserandomunits", "voidbanishchance", "voidret", "chancetobecomewerewolf", "stormimmune", "farsail", 
 			"lesserhorrorattackchance", "islance", "proudsteed", "comslave", "nofind", "chestwound", "feeblemind", "enlargement", "limitedenlargement", "antimagic", "soulvortex", 
-			"disbelieve", "truesight", "itemcost1", "itemost2", "falsesupplies", "bestowtomount", "extraarms", "nomount", "noinanimate", "nightmareaura", "undreaming", 
+			"disbelieve", "truesight", "falsesupplies", "bestowtomount", "extraarms", "nomount", "noinanimate", "nightmareaura", "undreaming", 
 			"glamourman", "nomindless", "noforgebonus", "magerestriction", "dancingweapon", "strikes", "warning", "strrequired", "beauty", "scalewalls", 
-			"nononsleeper", "reconst", "end"};																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																				
+			"nononsleeper", "reconst", "blur", "fireempower", "airempower", "waterempower", "earthempower", "heavy", "end"};																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																				
 
 
 	private static String[][] KNOWN_ITEM_ATTRS = {
@@ -206,8 +206,6 @@ public class ItemStatIndexer extends AbstractStatIndexer {
 			{"5D04", "twistfate"},
 			{"3E02", "nationrebate#"},
 			{"5202", "mason"},
-			{"5402", "itemcost1"},
-			{"5502", "itemcost2"},
 			{"6402", "blesssacredonly"},
 			{"8901", "returning"},
 			{"9800", "warning"},
@@ -295,7 +293,11 @@ public class ItemStatIndexer extends AbstractStatIndexer {
 			{"F303", "truesight"},
 			{"7805", "itemcost1"},
 			{"7905", "itemcost2"},
-
+			{"3804", "fireempower"},
+			{"3904", "airempower"},
+			{"3A04", "waterempower"},
+			{"3B04", "earthempower"},
+			{"9B05", "heavy"},
 			
 	};
 	
@@ -323,7 +325,7 @@ public class ItemStatIndexer extends AbstractStatIndexer {
 										{"", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "" },
 										{"", "invulnerable", "", "", "", "", "trample", "", "", "nofind", "", "soulvortex", "", "", "", "fireshield" },
 										{"", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "" },
-										{"foolsluck", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "" },
+										{"foolsluck", "", "", "", "", "", "", "", "", "", "blur", "", "", "", "", "" },
 										{"", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "" },
 										{"disease", "curse", "", "", "", "", "", "", "", "", "", "", "", "", "", "cursed" },
 										{"", "", "", "", "", "", "", "chestwound", "", "feeblemind", "", "", "", "", "", "" },
