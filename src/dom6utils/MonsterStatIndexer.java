@@ -91,7 +91,7 @@ public class MonsterStatIndexer extends AbstractStatIndexer {
 			"moreheat",	"moreluck", "moremagic", "nofmounts", "divinebeing", "falsedamagerecovery", "uwpathboost", "nofalldmg", "randomitems", "fireempower", 
 			"airempower", "waterempower", "earthempower", "popspy", "capitalhome", "deathslimeexpl", "deathpoisonexpl", "deathshockexpl", "drawsize", "clumsy", "petrificationimmune", 
 			"regainmount", "nobarding", "scarsouls", "spikebarbs", "pretenderstartsite", "mountiscom", "nothrowoff", "offscriptresearch", "bird", "decayres", 
-			"unmountedspr", "cubmother", "exhaustion", "glamour", "end"}; 
+			"unmountedspr", "cubmother", "exhaustion", "glamour", "deadhp", "maxdeadhp", "end"}; 
 			
 			
 	private static String values[][] = {{"heal", "mounted", "animal", "amphibian", "wastesurvival", "undead", "coldres15", "heat", "neednoteat", "fireres15", "poisonres15", "aquatic", "flying", "trample", "immobile", "immortal" },
@@ -116,6 +116,7 @@ public class MonsterStatIndexer extends AbstractStatIndexer {
 		{"2804", "damagerev"},
 		{"3004", "tightrein"},
 		{"AA02", "templetrainer"},
+		{"3402", "templetrainer"},
 		{"6B04", "corpsestitcher"},
 		{"2D04", "reconstruction"},
 		{"FB03", "nofriders"},
@@ -257,7 +258,7 @@ public class MonsterStatIndexer extends AbstractStatIndexer {
 		{"7B01", "taskmaster"},
 		{"1301", "unique"},
 		{"6900", "awe"},
-		{"9D00", "additional leadership"}, // Technically #command
+		{"A000", "additional leadership"}, // Technically #command
 		
 		//{"B900", "startaff"}, // seems old and outdated
 		{"F500", "landshape"},
@@ -464,7 +465,7 @@ public class MonsterStatIndexer extends AbstractStatIndexer {
 		{"E801", "isashah"},
 		{"E901", "iceforging"},
 		{"EC01", "isayazad"},
-		{"ED00", "corpseeater"},
+		{"ED00", "deadhp"},
 		{"ED01", "isadaeva"},	
 		{"F000", "blessfly"}, // formerly flieswhenblessed
 		{"F401", "plant"},
@@ -546,7 +547,7 @@ public class MonsterStatIndexer extends AbstractStatIndexer {
 		{"AC02", "autoblessed"},
 		{"9902", "domimmortal"},
 		{"9F02", "wintersummon1d3"},
-		
+		{"EF00", "maxdeadhp"},
 		
 		
 	};
