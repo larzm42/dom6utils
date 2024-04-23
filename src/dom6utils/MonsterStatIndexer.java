@@ -91,7 +91,7 @@ public class MonsterStatIndexer extends AbstractStatIndexer {
 			"moreheat",	"moreluck", "moremagic", "nofmounts", "divinebeing", "falsedamagerecovery", "uwpathboost", "nofalldmg", "randomitems", "fireempower", 
 			"airempower", "waterempower", "earthempower", "popspy", "capitalhome", "deathslimeexpl", "deathpoisonexpl", "deathshockexpl", "drawsize", "clumsy", "petrificationimmune", 
 			"regainmount", "nobarding", "scarsouls", "spikebarbs", "pretenderstartsite", "mountiscom", "nothrowoff", "offscriptresearch", "bird", "decayres", 
-			"unmountedspr", "cubmother", "exhaustion", "glamour", "deadhp", "maxdeadhp", "end"}; 
+			"unmountedspr", "cubmother", "exhaustion", "glamour", "deadhp", "maxdeadhp", "verystupid", "end"}; 
 			
 			
 	private static String values[][] = {{"heal", "mounted", "animal", "amphibian", "wastesurvival", "undead", "coldres15", "heat", "neednoteat", "fireres15", "poisonres15", "aquatic", "flying", "trample", "immobile", "immortal" },
@@ -99,8 +99,7 @@ public class MonsterStatIndexer extends AbstractStatIndexer {
 										{"bluntres", "slashres", "pierceres", "slow_to_recruit", "float", "stormimmune", "teleport", "snowmove", "swimming", "domimmortal", "", "", "spiritform", "", "", "" },
 										{"", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "" },
 										{"magicbeing", "", "requndeadleadership", "poormagicleader", "okmagicleader", "goodmagicleader", "expertmagicleader", "superiormagicleader", "poorundeadleader", "okundeadleader", "goodundeadleader", "expertundeadleader", "superiorundeadleader", "", "", "" },
-										{"", "", "", "", "stupid", "", "", "", "noleader", "poorleader", "goodleader", "expertleader", "superiorleader", "", "", "" },
-										{"", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "" },
+										{"", "", "", "", "stupid", "", "verystupid", "", "noleader", "poorleader", "goodleader", "expertleader", "superiorleader", "", "", "" },
 										{"", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "" }};
 	
 	private static String[][] KNOWN_MONSTER_ATTRS = {
