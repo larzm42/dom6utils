@@ -91,7 +91,7 @@ public class MonsterStatIndexer extends AbstractStatIndexer {
 			"moreheat",	"moreluck", "moremagic", "nofmounts", "divinebeing", "falsedamagerecovery", "uwpathboost", "nofalldmg", "randomitems", "fireempower", 
 			"airempower", "waterempower", "earthempower", "popspy", "capitalhome", "deathslimeexpl", "deathpoisonexpl", "deathshockexpl", "drawsize", "clumsy", "petrificationimmune", 
 			"regainmount", "nobarding", "scarsouls", "spikebarbs", "pretenderstartsite", "mountiscom", "nothrowoff", "offscriptresearch", "bird", "decayres", 
-			"unmountedspr", "cubmother", "exhaustion", "glamour", "deadhp", "maxdeadhp", "verystupid", "end"}; 
+			"unmountedspr", "cubmother", "exhaustion", "glamour", "deadhp", "maxdeadhp", "verystupid", "deathdiseaseexpl", "end"}; 
 			
 			
 	private static String values[][] = {{"heal", "mounted", "animal", "amphibian", "wastesurvival", "undead", "coldres15", "heat", "neednoteat", "fireres15", "poisonres15", "aquatic", "flying", "trample", "immobile", "immortal" },
@@ -151,6 +151,7 @@ public class MonsterStatIndexer extends AbstractStatIndexer {
 		{"5904", "deathslimeexpl"},
 		{"3604", "deathpoisonexpl"},
 		{"5804", "deathshockexpl"},
+		{"2604", "deathdiseaseexpl"},
 		{"7301", "drawsize"},
 		{"F503", "clumsy"},
 		{"8A00", "petrificationimmune"},

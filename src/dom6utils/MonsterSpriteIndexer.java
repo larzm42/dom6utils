@@ -160,6 +160,7 @@ public class MonsterSpriteIndexer extends AbstractStatIndexer {
 		indexToInt.put("mount", new ArrayList<String>(Arrays.asList(new String[]{"C1"})));
 		indexToInt.put("Bekryd", new ArrayList<String>(Arrays.asList(new String[]{"C5"})));
 		indexToInt.put("Pyr MA", new ArrayList<String>(Arrays.asList(new String[]{"C9"})));
+		indexToInt.put("Pyr LA", new ArrayList<String>(Arrays.asList(new String[]{"CC", "CD"})));
 		indexToInt.put("Nid", new ArrayList<String>(Arrays.asList(new String[]{"D0", "D1"})));
 		indexToInt.put("Plant", new ArrayList<String>(Arrays.asList(new String[]{"D4", "D5"})));
 		indexToInt.put("glamour", new ArrayList<String>(Arrays.asList(new String[]{"D8"})));

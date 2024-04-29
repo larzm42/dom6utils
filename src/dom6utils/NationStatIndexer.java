@@ -120,10 +120,10 @@ public class NationStatIndexer extends AbstractStatIndexer {
 				nation.parameters.put("era", getBytes2(startIndex + 172l));
 				
 		        List<Attribute> attributes = new ArrayList<Attribute>();
-				long newIndex = startIndex+176l;
+				long newIndex = startIndex+Starts.NATION_ATTRIBUTE_OFFSET;
 				
 				int attrib = getBytes4(newIndex);
-				long valueIndex = newIndex + 600l;
+				long valueIndex = startIndex + Starts.NATION_ATTRIBUTE_VALUE_OFFSET;
 				long value = getBytes4(valueIndex);
 				while (attrib != 0) {
 					attributes.add(new Attribute(rowNumber-1, attrib, value));
@@ -135,7 +135,7 @@ public class NationStatIndexer extends AbstractStatIndexer {
 				nation.attributes = attributes;
 				
 		        Map<unitType, List<Troops>> unitMap = new HashMap<unitType, List<Troops>>();
-				newIndex = startIndex+1976l;
+				newIndex = startIndex+Starts.NATION_TROOP_OFFSET;
 				unitType type = unitType.TROOP;
 				if (unitMap.get(type) == null) {
 					unitMap.put(type, new ArrayList<Troops>());
@@ -157,7 +157,7 @@ public class NationStatIndexer extends AbstractStatIndexer {
 					attrib = getBytes4(newIndex);
 				}
 				
-				newIndex = startIndex+2144l;
+				newIndex = startIndex+Starts.NATION_PRETENDER_OFFSET;
 				attrib = getBytes4(newIndex);
 				while (attrib != 0) {
 					if (attrib < 0) {
