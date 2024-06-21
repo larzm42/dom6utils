@@ -78,7 +78,7 @@ public class MonsterStatIndexer extends AbstractStatIndexer {
 			"yearturn", "fortkill", "thronekill", "digest", "indepmove", "unteleportable", "reanimpriest", "stunimmunity",
 			"entangle", "alchemy", "woundfend", "singlebattle", "falsearmy",
 			"summon5", "ainorec", "researchwithoutmagic", "slaver", "autocompete", "deathparalyze", "adventurers", "cleanshape", "reqlab",
-			"reqtemple", "horrormarked", "changetargetgenderforseductionandseductionimmune", "corpseconstruct", "guardianspiritmodifier", "isashah", "iceforging",
+			"reqtemple", "horrormarked", "changetargetgenderforseductionandseductionimmune", "overcharged", "guardianspiritmodifier", "isashah", "iceforging",
 			"isayazad", "isadaeva", "blessfly", "plant", "clockworklord", "commaster", "comslave", "minsizeleader", "snowmove", "swimming", "stupid",
 			"skirmisher", "ironvul", "heathensummon", "unseen", "powerofdeath", "reformtime","immortalrespawn", "nomovepen", "wolf", "dungeon", 
 			"graphicsize", "twiceborn", "aboleth", "tmpastralgems", "localsun", "tmpfiregems", "defiler", "mountedbeserk", "lanceok", "startheroab", "minprison", 
@@ -460,7 +460,7 @@ public class MonsterStatIndexer extends AbstractStatIndexer {
 		{"D601", "reqtemple"}, // formerly requirestempletorecruit
 		{"D701", "horrormarked"},
 		{"DA00", "changetargetgenderforseductionandseductionimmune"},
-		{"DE01", "corpseconstruct"},
+		{"DE01", "overcharged"},
 		{"E601", "guardianspiritmodifier"},
 		{"E801", "isashah"},
 		{"E901", "iceforging"},
@@ -1381,6 +1381,10 @@ public class MonsterStatIndexer extends AbstractStatIndexer {
 						row.getCell(i, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK).setCellValue(unit_columns[i]);
 					}
 					rowNum++;
+				}
+				if (monster.getAttribute("name").equals("...")) {
+					// Skip this row
+					continue;
 				}
 				XSSFRow row = sheet.createRow(rowNum);
 				for (int i = 0; i < unit_columns.length; i++) {
