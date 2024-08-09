@@ -521,7 +521,7 @@ public class EventStatIndexer extends AbstractStatIndexer {
 				}
 				XSSFRow row = sheet.createRow(rowNum);
 				
-				row.getCell(0, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK).setCellValue(rowNum);
+				row.getCell(0, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK).setCellValue(rowNum-1);
 				row.getCell(1, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK).setCellValue(event.description.substring(0, Math.min(event.description.length(), 30)));
 				row.getCell(2, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK).setCellValue(event.rarity);
 				row.getCell(3, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK).setCellValue(event.description);
