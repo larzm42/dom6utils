@@ -221,14 +221,14 @@ public class SiteStatIndexer extends AbstractStatIndexer {
 				site.parameters = new TreeMap<String, Object>();
 				site.parameters.put("id", rowNumber);
 				site.parameters.put("name", name.toString());
-				short rarity = getBytes1(startIndex + 42);
+				short rarity = getBytes1(startIndex + 46);
 				site.parameters.put("rarity", rarity == -1 ? "0" : rarity);
 				site.parameters.put("loc", getBytes4(startIndex + 304));
-				site.parameters.put("level", getBytes2(startIndex + 40));
+				site.parameters.put("level", getBytes2(startIndex + 44));
 				String[] paths = {"Fire", "Air", "Water", "Earth", "Astral", "Death", "Nature", "Glamour", "Blood", "Holy"};
 				int[] spriteOffset = {1, 10, 19, 29, 41, 48, 57, 68, 82, 91};
-				short path = getBytes1(startIndex + 38);
-				short sprite = getBytes1(startIndex + 36);
+				short path = getBytes1(startIndex + 42);
+				short sprite = getBytes1(startIndex + 40);
 				site.parameters.put("path", path == -1 ? "" : paths[path]);
 				site.parameters.put("sprite", path == -1 ? "" : spriteOffset[path] + sprite);
 				

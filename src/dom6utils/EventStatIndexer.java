@@ -465,7 +465,7 @@ public class EventStatIndexer extends AbstractStatIndexer {
 				Event event = new Event();
 				event.description = name.toString();
 				
-				int tmp = getBytes2(startIndex + 1400l);
+				int tmp = getBytes2(startIndex + 2400l);
 				if (tmp > 100) {
 					tmp = tmp - 256;
 				}
