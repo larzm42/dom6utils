@@ -99,7 +99,7 @@ public class MonsterStatIndexer extends AbstractStatIndexer {
 										{"bluntres", "slashres", "pierceres", "slow_to_recruit", "float", "stormimmune", "teleport", "snowmove", "swimming", "domimmortal", "", "", "spiritform", "", "", "" },
 										{"", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "" },
 										{"magicbeing", "", "requndeadleadership", "poormagicleader", "okmagicleader", "goodmagicleader", "expertmagicleader", "superiormagicleader", "poorundeadleader", "okundeadleader", "goodundeadleader", "expertundeadleader", "superiorundeadleader", "", "", "" },
-										{"", "", "", "", "stupid", "", "verystupid", "", "noleader", "poorleader", "goodleader", "expertleader", "superiorleader", "", "", "" },
+										{"", "", "", "", "stupid", "spiritsightinate", "verystupid", "", "noleader", "poorleader", "goodleader", "expertleader", "superiorleader", "", "", "" },
 										{"", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "" }};
 	
 	private static String[][] KNOWN_MONSTER_ATTRS = {
@@ -404,7 +404,7 @@ public class MonsterStatIndexer extends AbstractStatIndexer {
 		{"3202", "snaketattoo"},
 		{"3301", "appetite"}, // formerly supplysize
 		{"3302", "astralfetters"},
-		{"3400", "foreignmagicboost"},
+		{"3E00", "foreignmagicboost"},
 		{"3901", "infernoret"},
 		{"3A01", "kokytosret"},
 		{"3D01", "addrandomage"}, // formerly infernalcrossbreedingmult
@@ -1204,6 +1204,9 @@ public class MonsterStatIndexer extends AbstractStatIndexer {
 							monster.addAttribute(new Attr("almostundead", 1));
 						}
 					}
+				}
+				if (largeBitmap.contains("spiritsightinate")) {
+					monster.addAttribute(new Attr("spiritsight", 1));
 				}
 
 				// magic

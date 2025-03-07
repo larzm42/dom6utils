@@ -63,7 +63,7 @@ public class ItemStatIndexer extends AbstractStatIndexer {
 			"lesserhorrorattackchance", "islance", "proudsteed", "comslave", "nofind", "chestwound", "feeblemind", "enlargement", "limitedenlargement", "antimagic", "soulvortex", 
 			"disbelieve", "truesight", "falsesupplies", "bestowtomount", "extraarms", "nomount", "noinanimate", "nightmareaura", "undreaming", 
 			"glamourman", "nomindless", "noforgebonus", "magerestriction", "dancingweapon", "strikes", "warning", "strrequired", "beauty", "scalewalls", 
-			"nononsleeper", "reconst", "blur", "fireempower", "airempower", "waterempower", "earthempower", "heavy", "dreamenhancer", "summoner1d6", "summoner2d6", "end"};																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																				
+			"nononsleeper", "reconst", "blur", "fireempower", "airempower", "waterempower", "earthempower", "heavy", "dreamenhancer", "summoner1d6", "summoner2d6", "unseen", "end"};																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																				
 
 
 	private static String[][] KNOWN_ITEM_ATTRS = {
@@ -301,6 +301,7 @@ public class ItemStatIndexer extends AbstractStatIndexer {
 			{"8704", "dreamenhancer"},
 			{"9000", "summoner1d6"},
 			{"9100", "summoner2d6"},
+			{"B002", "unseen"},
 			
 	};
 	
