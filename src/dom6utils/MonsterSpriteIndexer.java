@@ -153,6 +153,7 @@ public class MonsterSpriteIndexer extends AbstractStatIndexer {
 		indexToInt.put("phl 2", new ArrayList<String>(Arrays.asList(new String[]{"A1", "A2"})));
 		indexToInt.put("phl 3", new ArrayList<String>(Arrays.asList(new String[]{"A5", "A6"})));
 		indexToInt.put("phae", new ArrayList<String>(Arrays.asList(new String[]{"A9", "AA"})));
+		indexToInt.put("Zem", new ArrayList<String>(Arrays.asList(new String[]{"AD"})));
 		indexToInt.put("ind", new ArrayList<String>(Arrays.asList(new String[]{"B1", "B2"})));
 		indexToInt.put("ubar", new ArrayList<String>(Arrays.asList(new String[]{"B5"})));
 		indexToInt.put("naba", new ArrayList<String>(Arrays.asList(new String[]{"B9"})));
@@ -163,7 +164,7 @@ public class MonsterSpriteIndexer extends AbstractStatIndexer {
 		indexToInt.put("Pyr LA", new ArrayList<String>(Arrays.asList(new String[]{"CC", "CD"})));
 		indexToInt.put("Nid", new ArrayList<String>(Arrays.asList(new String[]{"D0", "D1"})));
 		indexToInt.put("Plant", new ArrayList<String>(Arrays.asList(new String[]{"D4", "D5"})));
-		indexToInt.put("glamour", new ArrayList<String>(Arrays.asList(new String[]{"D8"})));
+		indexToInt.put("glamour", new ArrayList<String>(Arrays.asList(new String[]{"D8", "D9"})));
 		indexToInt.put("Fem", new ArrayList<String>(Arrays.asList(new String[]{"DC"})));
 		indexToInt.put("Pico", new ArrayList<String>(Arrays.asList(new String[]{"E0"})));
 		indexToInt.put("And", new ArrayList<String>(Arrays.asList(new String[]{"E4"})));
